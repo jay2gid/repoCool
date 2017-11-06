@@ -1,0 +1,45 @@
+//
+//  PrefixHeader.pch
+//
+//  Created by Ashish Kumar Sharma on 04/07/16.
+//  Copyright © 2016 Ashish Kumar Sharma. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+@class ACFloatingTextfield;
+
+#import "AppDelegate.h"
+#import "Config.h"
+#import "WebServiceCalls.h"
+#import "Reachability.h"
+#import "APPhotoLibrary.h"
+#import "UserSession.h"
+#import <Foundation/Foundation.h>
+#import "MBProgressHUD.h"
+#import "SVProgressHUD.h"
+#import "TPKeyboardAvoidingScrollView.h"
+#import "UIImageView+WebCache.h"
+#import "StarRatingControl.h"
+#import "LoginVC.h"
+
+#import "HeaderView.h"
+#import "ACFloatingTextField.h"
+
+#import "AllCool_pl-Swift.h"
+
+#import "FestivalViewVC.h"
+#import "FirstVC.h"
+
+#import "ViewAddDodaj.h"
+#import "ViewNotesList.h"
+#import "FloatingButton.h"
+#import "UIView+Toast.h"
+
+#import "FavBearVC.h"
+#import "FavListVC.h"
+#import "FavBravery.h"
+#import "FestivalListVC.h"
+#import "RatingCell.h"
+#endif
