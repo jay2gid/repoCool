@@ -10,7 +10,7 @@
 
 @implementation ViewAddRatingTobotal
 
-@synthesize BID,delegate;
+@synthesize BID,delegate, FID, isF_ID;
 
 - (void)drawRect:(CGRect)rect
 {
@@ -26,7 +26,14 @@
 {
     if (txtComment.text.length > 0)
     {
-        [self add_Comment];
+        if (isF_ID != 1)
+        {
+            [self add_Comment];
+        }
+        else
+        {
+            [self add_Comment2];
+        }
     }
     else
     {
@@ -74,6 +81,44 @@
          @catch (NSException *exception)
          {
             // [WebServiceCalls alert:@"Unable to fetch data. try again"];
+         }
+         @finally
+         {
+         }
+     }];
+}
+
+-(void) add_Comment2
+{
+    // api_ios/festival/festival_review.php
+    
+    NSString *star = [NSString stringWithFormat:@"%ld", viewStarRating.rating];
+    
+    SVHUD_START
+    NSDictionary *dict = @{@"uid":UserID, @"fid":FID, @"rating":star, @"comment":txtComment.text};
+    
+    [WebServiceCalls POST:@"vendorss/singlebeer_rating.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
+     {
+         SVHUD_STOP
+         NSLog(@"%@", JSON);
+         @try
+         {
+             if ([JSON[@"success"] integerValue] == 1)
+             {
+                 [self removeFromSuperview];
+                 [self.selfBack.navigationController.view makeToast:@"Rating Submitted"];
+                 [delegate didSuccessRating];
+             }
+             else
+             {
+                 if (JSON[@"message"])
+                     [WebServiceCalls alert:JSON[@"message"]];
+                 
+             }
+         }
+         @catch (NSException *exception)
+         {
+             // [WebServiceCalls alert:@"Unable to fetch data. try again"];
          }
          @finally
          {

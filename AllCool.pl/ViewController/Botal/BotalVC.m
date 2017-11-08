@@ -197,6 +197,7 @@
     view.selfBack = self;
     view.dictBear = dictBeer;
     view.delegate = self;
+    view.isF_ID = 0;
     [self.view addSubview:view];
 }
 

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewAddRatingTobotal.h"
 
-@interface FestivalViewVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface FestivalViewVC : UIViewController <UITableViewDataSource, UITableViewDelegate, ratingSuccessDelegate>
 {
     
     IBOutlet UIImageView *imgFest;
