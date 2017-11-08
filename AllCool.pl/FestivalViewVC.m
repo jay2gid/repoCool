@@ -24,6 +24,7 @@
     NSInteger tag;
     
     NSArray *arrExibitors, *arrProg, *arrRating, *arrCategory;
+    NSDictionary *fest_Dict;
 }
 
 @synthesize F_ID;
@@ -56,12 +57,36 @@
     
     arrExibitors = arrProg = arrRating = arrCategory = @[];
     
+    [self festivalDetails];
     [self get_Fest_Exibitors];
     [self get_Fest_Prog];
     [self get_Fest_Rating];
     [self get_Fest_Category];
     
     [tblViewFest reloadData];
+}
+
+-(void) festivalDetails
+{
+    // festival/festival_single.php
+    
+    NSDictionary *dict = @{@"uid":UserID, @"id":F_ID};
+    
+    SVHUD_START
+    [WebServiceCalls POST:@"festival/festival_single.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
+     {
+         SVHUD_STOP
+         NSLog(@"%@", JSON);
+         
+         if ([JSON[@"success"] integerValue] == 1)
+         {
+             fest_Dict = JSON[@"festivals"][0];
+         }
+         else
+         {
+             [WebServiceCalls alert:JSON[@"message"]];
+         }
+     }];
 }
 
 -(void) get_Fest_Exibitors
@@ -338,31 +363,47 @@
                                  message:@""
                                  preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction* online = [UIAlertAction
-                             actionWithTitle:@"Odwiedzony"
-                             style:UIAlertActionStyleDefault
-                             handler:^(UIAlertAction * action)
-                             {
-                                 // api_ios/festival/festival_visited.php
-                                 
-                                 NSDictionary *dict = @{@"uid":UserID, @"fid":F_ID};
-                                 [self Api_URL:@"festival/festival_visited.php" Data:dict];
-                                 
-                                 [view dismissViewControllerAnimated:YES completion:nil];
-                             }];
-    UIAlertAction* offline = [UIAlertAction
-                              actionWithTitle:@"Ulubiony"
-                              style:UIAlertActionStyleDefault
-                              handler:^(UIAlertAction * action)
-                              {
-                                  // api_ios/festival/favourite_festival.php
-                                  
-                                  NSDictionary *dict = @{@"uid":UserID, @"fid":F_ID};
-                                  [self Api_URL:@"festival/favourite_festival.php" Data:dict];
-                                  
-                                  [view dismissViewControllerAnimated:YES completion:nil];
-                                  
-                              }];
+    if ([fest_Dict[@"festival_visited"] integerValue] != 1)
+    {
+        UIAlertAction* online = [UIAlertAction
+                                 actionWithTitle:@"Odwiedzony"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                     // api_ios/festival/festival_visited.php
+                                     
+                                     NSDictionary *dict = @{@"uid":UserID, @"fid":F_ID};
+                                     [self Api_URL:@"festival/festival_visited.php" Data:dict];
+                                     
+                                     [view dismissViewControllerAnimated:YES completion:nil];
+                                 }];
+        
+        [online setValue:[[UIImage imageNamed:@"flag_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+
+        [view addAction:online];
+    }
+    
+    if ([fest_Dict[@"fav_festival"] integerValue] != 1)
+    {
+        UIAlertAction* offline = [UIAlertAction
+                                  actionWithTitle:@"Ulubiony"
+                                  style:UIAlertActionStyleDefault
+                                  handler:^(UIAlertAction * action)
+                                  {
+                                      // api_ios/festival/favourite_festival.php
+                                      
+                                      NSDictionary *dict = @{@"uid":UserID, @"fid":F_ID};
+                                      [self Api_URL:@"festival/favourite_festival.php" Data:dict];
+                                      
+                                      [view dismissViewControllerAnimated:YES completion:nil];
+                                      
+                                  }];
+        
+        [offline setValue:[[UIImage imageNamed:@"like_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+
+        [view addAction:offline];
+    }
+    
     UIAlertAction* doNotDistrbe = [UIAlertAction
                                    actionWithTitle:@"Pokaz droge"
                                    style:UIAlertActionStyleDefault
@@ -397,13 +438,9 @@
                                  
                              }];
     
-    [online setValue:[[UIImage imageNamed:@"flag_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
-    [offline setValue:[[UIImage imageNamed:@"like_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
     [doNotDistrbe setValue:[[UIImage imageNamed:@"star_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
     [away setValue:[[UIImage imageNamed:@"star_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
     
-    [view addAction:online];
-    [view addAction:offline];
     [view addAction:doNotDistrbe];
     [view addAction:away];
     [view addAction:cancel];
