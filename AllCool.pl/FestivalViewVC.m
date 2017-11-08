@@ -11,6 +11,7 @@
 #import "ProgramTVCell.h"
 #import "RatingTVCell.h"
 #import "CategoryTVCell.h"
+#import "ViewAddRatingTobotal.h"
 
 @interface FestivalViewVC ()
 
@@ -342,6 +343,11 @@
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
+                                 // api_ios/festival/festival_visited.php
+                                 
+                                 NSDictionary *dict = @{@"uid":UserID, @"fid":F_ID};
+                                 [self Api_URL:@"festival/festival_visited.php" Data:dict];
+                                 
                                  [view dismissViewControllerAnimated:YES completion:nil];
                              }];
     UIAlertAction* offline = [UIAlertAction
@@ -349,6 +355,11 @@
                               style:UIAlertActionStyleDefault
                               handler:^(UIAlertAction * action)
                               {
+                                  // api_ios/festival/favourite_festival.php
+                                  
+                                  NSDictionary *dict = @{@"uid":UserID, @"fid":F_ID};
+                                  [self Api_URL:@"festival/favourite_festival.php" Data:dict];
+                                  
                                   [view dismissViewControllerAnimated:YES completion:nil];
                                   
                               }];
@@ -365,6 +376,14 @@
                            style:UIAlertActionStyleDestructive
                            handler:^(UIAlertAction * action)
                            {
+                               ViewAddRatingTobotal *view1 = [[[NSBundle mainBundle] loadNibNamed:@"View" owner:self options:nil]objectAtIndex:1];
+                               view1.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
+                               view1.isF_ID = 1;
+                               view1.FID = F_ID;
+                               view1.selfBack = self;
+                               view1.delegate = self;
+                               [self.view addSubview:view1];
+                               
                                [view dismissViewControllerAnimated:YES completion:nil];
                                
                            }];
@@ -392,5 +411,29 @@
     [self presentViewController:view animated:YES completion:nil];
 }
 
+-(void)didSuccessRating
+{
+    NSLog(@"Comment Added");
+}
+
+-(void) Api_URL:(NSString *)url Data:(NSDictionary *)dict
+{
+    
+    SVHUD_START
+    [WebServiceCalls POST:url parameter:dict completionBlock:^(id JSON, WebServiceResult result)
+     {
+         SVHUD_STOP
+         NSLog(@"%@", JSON);
+         
+         if ([JSON[@"success"] integerValue] == 1)
+         {
+             [WebServiceCalls alert:JSON[@"message"]];
+         }
+         else
+         {
+             [WebServiceCalls alert:JSON[@"message"]];
+         }
+     }];
+}
 
 @end
