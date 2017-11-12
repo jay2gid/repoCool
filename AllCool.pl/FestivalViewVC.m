@@ -62,6 +62,9 @@
     [self get_Fest_Category];
     
     [tblViewFest reloadData];
+    
+    
+    
 }
 
 -(void) get_Fest_Exibitors
@@ -416,7 +419,7 @@
     NSLog(@"Comment Added");
 }
 
--(void) Api_URL:(NSString *)url Data:(NSDictionary *)dict
+-(void)Api_URL:(NSString *)url Data:(NSDictionary *)dict
 {
     
     SVHUD_START

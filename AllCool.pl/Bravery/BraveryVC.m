@@ -31,5 +31,9 @@
     lineX.constant = WIDTH/3 * sender.tag;
 }
 
+- (IBAction)tapPlusButton:(id)sender
+{
+    
+}
 
 @end

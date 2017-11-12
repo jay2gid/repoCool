@@ -383,6 +383,7 @@
 		9234505C1F91111400418E2C /* ViewNotesList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewNotesList.h; path = CustomView/ViewNotesList.h; sourceTree = "<group>"; };
 		9234505D1F91111400418E2C /* ViewNotesList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewNotesList.m; path = CustomView/ViewNotesList.m; sourceTree = "<group>"; };
 		9234505F1F91113B00418E2C /* ViewNotesList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ViewNotesList.xib; path = CustomView/ViewNotesList.xib; sourceTree = "<group>"; };
+		924F3D541FB5F9C900E4C1DF /* call_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_icon.png; sourceTree = "<group>"; };
 		9284B0E51FAF109E009B5ABB /* ViewSaveInList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewSaveInList.h; path = CustomView/ViewSaveInList.h; sourceTree = "<group>"; };
 		9284B0E61FAF109E009B5ABB /* ViewSaveInList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewSaveInList.m; path = CustomView/ViewSaveInList.m; sourceTree = "<group>"; };
 		9284B0E81FAF10B5009B5ABB /* ViewSaveinList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewSaveinList.xib; sourceTree = "<group>"; };
@@ -1058,6 +1059,7 @@
 				92B0CAD71F9B7E620000AB4C /* GoogleService-Info.plist */,
 				92ADAEF41F5FC99800501EA0 /* allcoolicon */,
 				92A2AA151F7007AC0000939D /* bear.png */,
+				924F3D541FB5F9C900E4C1DF /* call_icon.png */,
 				92ADAEDD1F5FC83B00501EA0 /* Supporting Files */,
 			);
 			path = AllCool.pl;
