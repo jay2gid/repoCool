@@ -12,7 +12,6 @@
 @interface BraveryVC ()
 {
     IBOutlet NSLayoutConstraint *lineX;
-    
     IBOutlet UIScrollView *scrollBotals;
     
 }
@@ -28,7 +27,7 @@
     SVHUD_START
     [WebServiceCalls GET:@"vendorss/Brewary_Profile.php" parameter:nil completionBlock:^(id JSON, WebServiceResult result)
      {
-         SVHUD_STOP         
+         SVHUD_STOP
          @try
          {
              if ([JSON[@"success"] integerValue] == 1)
@@ -45,7 +44,7 @@
          @finally
          {  }
      }];
-    
+
     [self loadCollectionScrollView];
 }
 
@@ -56,23 +55,22 @@
     float cellHeight = HEIGHT/3;
 
     for (int i = 0; i<5; i++) {
-        
-        MyCellView *myCell = [[[NSBundle mainBundle]loadNibNamed:@"Bravery" owner:self options:nil]objectAtIndex:2];
-        myCell.frame = CGRectMake(WIDTH/2* (float)(i%2), i/2 *cellHeight, WIDTH/2, cellHeight);
 
+        MyCellView *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:1];
+        myCell.frame = CGRectMake(WIDTH/2* (float)(i%2), i/2 *cellHeight, WIDTH/2, cellHeight);
         [scrollBotals addSubview:myCell];
-        
-        
+
         UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0, (i/2 + 1)*cellHeight, WIDTH, 0.5)];
         lbl.backgroundColor = [UIColor lightGrayColor];
         [scrollBotals addSubview:lbl];
-        
+
         lbl = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, i/2 *cellHeight, 0.5, cellHeight)];
         lbl.backgroundColor = [UIColor lightGrayColor];
         [scrollBotals addSubview:lbl];
     }
-    
 
+    [scrollBotals setContentSize:CGSizeMake(WIDTH, HEIGHT)];
+    
 }
 
 - (IBAction)tapSegmanets:(UIButton *)sender {

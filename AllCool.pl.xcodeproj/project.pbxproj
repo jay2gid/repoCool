@@ -226,6 +226,7 @@
 		92B0CADC1F9C81850000AB4C /* Bravery.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B0CADB1F9C81850000AB4C /* Bravery.xib */; };
 		92B0CADF1F9C87AA0000AB4C /* BraveryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */; };
 		92B47A8F1FB8B3DC0091A8AD /* call_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 924F3D541FB5F9C900E4C1DF /* call_icon.png */; };
+		92B47A911FB8B77F0091A8AD /* MyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B47A901FB8B77F0091A8AD /* MyCell.xib */; };
 		92C3C8441F7618B7008404C7 /* ACFloatingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C3C8431F7618B7008404C7 /* ACFloatingTextField.m */; };
 		92C3C8461F761997008404C7 /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3C8451F761997008404C7 /* ACFloatingTextfield.swift */; };
 		92C3C84A1F78150E008404C7 /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C3C8491F78150E008404C7 /* icon_back.png */; };
@@ -543,6 +544,7 @@
 		92B0CADB1F9C81850000AB4C /* Bravery.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Bravery.xib; sourceTree = "<group>"; };
 		92B0CADD1F9C87AA0000AB4C /* BraveryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BraveryVC.h; sourceTree = "<group>"; };
 		92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BraveryVC.m; sourceTree = "<group>"; };
+		92B47A901FB8B77F0091A8AD /* MyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCell.xib; sourceTree = "<group>"; };
 		92C3C8421F7618B7008404C7 /* ACFloatingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACFloatingTextField.h; sourceTree = "<group>"; };
 		92C3C8431F7618B7008404C7 /* ACFloatingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACFloatingTextField.m; sourceTree = "<group>"; };
 		92C3C8451F761997008404C7 /* ACFloatingTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACFloatingTextfield.swift; sourceTree = "<group>"; };
@@ -1215,6 +1217,7 @@
 				92B0CADB1F9C81850000AB4C /* Bravery.xib */,
 				92B0CADD1F9C87AA0000AB4C /* BraveryVC.h */,
 				92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */,
+				92B47A901FB8B77F0091A8AD /* MyCell.xib */,
 				924F3EC51FB855F400E4C1DF /* MyCellView.h */,
 				924F3EC61FB855F400E4C1DF /* MyCellView.m */,
 			);
@@ -1442,6 +1445,7 @@
 				92ADAFA61F5FC99800501EA0 /* join_active.png in Resources */,
 				92A2AA161F7007AC0000939D /* bear.png in Resources */,
 				92ADAF7D1F5FC99800501EA0 /* chat_bubble.png in Resources */,
+				92B47A911FB8B77F0091A8AD /* MyCell.xib in Resources */,
 				92ADAFC81F5FC99800501EA0 /* post_note.png in Resources */,
 				92ADAF881F5FC99800501EA0 /* down_arrow.png in Resources */,
 				92ADAFDD1F5FC99800501EA0 /* userr.png in Resources */,
