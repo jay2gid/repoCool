@@ -225,6 +225,7 @@
 		92ADAFE01F5FC99800501EA0 /* withoutcolor.png in Resources */ = {isa = PBXBuildFile; fileRef = 92ADAF6A1F5FC99800501EA0 /* withoutcolor.png */; };
 		92B0CADC1F9C81850000AB4C /* Bravery.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B0CADB1F9C81850000AB4C /* Bravery.xib */; };
 		92B0CADF1F9C87AA0000AB4C /* BraveryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */; };
+		92B47A8F1FB8B3DC0091A8AD /* call_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 924F3D541FB5F9C900E4C1DF /* call_icon.png */; };
 		92C3C8441F7618B7008404C7 /* ACFloatingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C3C8431F7618B7008404C7 /* ACFloatingTextField.m */; };
 		92C3C8461F761997008404C7 /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3C8451F761997008404C7 /* ACFloatingTextfield.swift */; };
 		92C3C84A1F78150E008404C7 /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C3C8491F78150E008404C7 /* icon_back.png */; };
@@ -1338,6 +1339,7 @@
 				92ADAF951F5FC99800501EA0 /* exibitors_unselect.png in Resources */,
 				92ADAFC11F5FC99800501EA0 /* one.png in Resources */,
 				92ADAFBB1F5FC99800501EA0 /* map_yello.png in Resources */,
+				92B47A8F1FB8B3DC0091A8AD /* call_icon.png in Resources */,
 				920DD7FC1FA98C3500267490 /* like_op.png in Resources */,
 				920DD7FD1FA98C3700267490 /* star_op.png in Resources */,
 				92ADAFCC1F5FC99800501EA0 /* promotion.png in Resources */,

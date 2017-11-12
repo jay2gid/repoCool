@@ -96,7 +96,7 @@
 
 -(void)tapButton:(UIButton *)sender
 {
-    BraveryVC *obj = [[[NSBundle mainBundle]loadNibNamed:@"" owner:self options:nil] objectAtIndex:0];
+    BraveryVC *obj = [[[NSBundle mainBundle]loadNibNamed:@"Bravery" owner:self options:nil] objectAtIndex:0];
     obj.infoDic =  arrProducers[sender.tag];
     [self.navigationController pushViewController:obj animated:YES];
 }
