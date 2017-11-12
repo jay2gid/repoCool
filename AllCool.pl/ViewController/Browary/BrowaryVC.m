@@ -7,6 +7,7 @@
 //
 
 #import "BrowaryVC.h"
+#import "BraveryVC.h"
 
 @interface BrowaryVC ()
 {
@@ -22,7 +23,7 @@
     [super viewDidLoad];
 
     GET_HEADER_VIEW
-    header.title.text = @"Browary";
+    header.title.text = @"Broway";
     
     [self get_all_producers];
 }
@@ -70,7 +71,6 @@
         [view addSubview:image];
         [image sd_setImageWithURL:[NSURL URLWithString:arrProducers[i][@"image"]] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
         
-        
         UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(5,wd-40,wd-10,50)];
         lbl.numberOfLines = 0;
         lbl.text = arrProducers[i][@"producer_name"];
@@ -78,7 +78,11 @@
         lbl.textAlignment = NSTextAlignmentCenter;
         lbl.font = [UIFont systemFontOfSize:14];
         
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0,wd,wd)];
+        [view addSubview:button];
+        [button addTarget:self action:@selector(tapButton:) forControlEvents:UIControlEventTouchUpInside];
         [scrollData addSubview:view];
+    
     }
     
     int chk = 1*(arrProducers.count%3);
@@ -88,6 +92,13 @@
     }
     
     [scrollData setContentSize:CGSizeMake(WIDTH, (WIDTH/3)*((arrProducers.count/3)+chk)+10)];
+}
+
+-(void)tapButton:(UIButton *)sender
+{
+    BraveryVC *obj = [[BraveryVC alloc]initWithNibName:@"BraveryVC.h" bundle:nil];
+    obj.infoDic =  arrProducers[sender.tag];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

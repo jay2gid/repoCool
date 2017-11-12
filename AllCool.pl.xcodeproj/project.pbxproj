@@ -84,6 +84,7 @@
 		922BA61F1F62BEDD0068A5C3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 922BA61E1F62BEDD0068A5C3 /* icon.png */; };
 		9234505E1F91111400418E2C /* ViewNotesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234505D1F91111400418E2C /* ViewNotesList.m */; };
 		923450601F91113B00418E2C /* ViewNotesList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9234505F1F91113B00418E2C /* ViewNotesList.xib */; };
+		924F3EC71FB855F400E4C1DF /* MyCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F3EC61FB855F400E4C1DF /* MyCellView.m */; };
 		9284B0E71FAF109E009B5ABB /* ViewSaveInList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9284B0E61FAF109E009B5ABB /* ViewSaveInList.m */; };
 		9284B0E91FAF10B5009B5ABB /* ViewSaveinList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9284B0E81FAF10B5009B5ABB /* ViewSaveinList.xib */; };
 		928912511F9266FE00890E25 /* FloatingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 928912501F9266FE00890E25 /* FloatingButton.m */; };
@@ -384,6 +385,8 @@
 		9234505D1F91111400418E2C /* ViewNotesList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewNotesList.m; path = CustomView/ViewNotesList.m; sourceTree = "<group>"; };
 		9234505F1F91113B00418E2C /* ViewNotesList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ViewNotesList.xib; path = CustomView/ViewNotesList.xib; sourceTree = "<group>"; };
 		924F3D541FB5F9C900E4C1DF /* call_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_icon.png; sourceTree = "<group>"; };
+		924F3EC51FB855F400E4C1DF /* MyCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCellView.h; sourceTree = "<group>"; };
+		924F3EC61FB855F400E4C1DF /* MyCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCellView.m; sourceTree = "<group>"; };
 		9284B0E51FAF109E009B5ABB /* ViewSaveInList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewSaveInList.h; path = CustomView/ViewSaveInList.h; sourceTree = "<group>"; };
 		9284B0E61FAF109E009B5ABB /* ViewSaveInList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewSaveInList.m; path = CustomView/ViewSaveInList.m; sourceTree = "<group>"; };
 		9284B0E81FAF10B5009B5ABB /* ViewSaveinList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewSaveinList.xib; sourceTree = "<group>"; };
@@ -1211,6 +1214,8 @@
 				92B0CADB1F9C81850000AB4C /* Bravery.xib */,
 				92B0CADD1F9C87AA0000AB4C /* BraveryVC.h */,
 				92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */,
+				924F3EC51FB855F400E4C1DF /* MyCellView.h */,
+				924F3EC61FB855F400E4C1DF /* MyCellView.m */,
 			);
 			path = Bravery;
 			sourceTree = "<group>";
@@ -1591,6 +1596,7 @@
 				922BA5901F600B520068A5C3 /* NSData+ImageContentType.m in Sources */,
 				922BA5D71F6167B90068A5C3 /* BearCell.m in Sources */,
 				922BA5A91F600B520068A5C3 /* WebServiceCalls.m in Sources */,
+				924F3EC71FB855F400E4C1DF /* MyCellView.m in Sources */,
 				922BA5281F600A390068A5C3 /* ViewWithCornerAndBorder.m in Sources */,
 				922BA5851F600B520068A5C3 /* AFHTTPSessionManager.m in Sources */,
 				922BA5961F600B520068A5C3 /* SDWebImageManager.m in Sources */,

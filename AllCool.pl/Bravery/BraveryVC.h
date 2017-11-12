@@ -10,4 +10,5 @@
 
 @interface BraveryVC : UIViewController
 
+@property(nonatomic,strong)NSDictionary *infoDic;
 @end
