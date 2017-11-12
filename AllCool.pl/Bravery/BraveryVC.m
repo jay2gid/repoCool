@@ -46,7 +46,7 @@
          {  }
      }];
     
-    [self loadCollectionScrollView];
+    //[self loadCollectionScrollView];
 }
 
 
@@ -127,7 +127,7 @@
     
     UIAlertAction* away = [UIAlertAction
                            actionWithTitle:@"Ocen festiwal"
-                           style:UIAlertActionStyleDestructive
+                           style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction * action)
                            {  }];
     
