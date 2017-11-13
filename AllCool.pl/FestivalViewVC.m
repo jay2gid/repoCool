@@ -422,7 +422,7 @@
                            {
                                ViewAddRatingTobotal *view1 = [[[NSBundle mainBundle] loadNibNamed:@"View" owner:self options:nil]objectAtIndex:1];
                                view1.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
-                               view1.isF_ID = 1;
+                               view1.isF_ID_Vid = 1;
                                view1.FID = F_ID;
                                view1.selfBack = self;
                                view1.delegate = self;
@@ -467,6 +467,7 @@
          if ([JSON[@"success"] integerValue] == 1)
          {
              [WebServiceCalls alert:JSON[@"message"]];
+             [self festivalDetails];
          }
          else
          {

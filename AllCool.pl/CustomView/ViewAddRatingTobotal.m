@@ -10,7 +10,7 @@
 
 @implementation ViewAddRatingTobotal
 
-@synthesize BID,delegate, FID, isF_ID;
+@synthesize BID,delegate, FID, VID, isF_ID_Vid;
 
 - (void)drawRect:(CGRect)rect
 {
@@ -26,7 +26,7 @@
 {
     if (txtComment.text.length > 0)
     {
-        if (isF_ID != 1)
+        if (isF_ID_Vid != 1)
         {
             [self add_Comment];
         }
@@ -90,14 +90,31 @@
 
 -(void) add_Comment2
 {
-    // api_ios/festival/festival_review.php
     
     NSString *star = [NSString stringWithFormat:@"%ld", viewStarRating.rating];
     
-    SVHUD_START
-    NSDictionary *dict = @{@"uid":UserID, @"fid":FID, @"rating":star, @"comment":txtComment.text};
+    NSString *ID, *url;
+    NSDictionary *dict;
+
+    if (FID)
+    {
+        // api_ios/festival/festival_review.php
+
+        ID = FID;
+        url = @"festival/festival_review.php";
+        dict = @{@"uid":UserID, @"fid":ID, @"rating":star, @"comment":txtComment.text};
+    }
+    else
+    {
+        // >> http://allcool.pl/api_ios/vendorss/rat_brewery.php
+        
+        ID = VID;
+        url = @"vendorss/rat_brewery.php";
+        dict = @{@"userid":UserID, @"pid":ID, @"name":User_Name, @"email":User_Email, @"rating":star, @"comment":txtComment.text};
+    }
     
-    [WebServiceCalls POST:@"vendorss/singlebeer_rating.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
+    SVHUD_START
+    [WebServiceCalls POST:url parameter:dict completionBlock:^(id JSON, WebServiceResult result)
      {
          SVHUD_STOP
          NSLog(@"%@", JSON);
