@@ -182,6 +182,10 @@
                 <viewLayoutGuide key="safeArea" id="VoC-gY-S8p"/>
             </view>
             <connections>
+                <outlet property="avg_rating" destination="fKh-0P-WRy" id="s8n-nF-EJK"/>
+                <outlet property="imgLogo" destination="ViV-Ah-4BX" id="TUU-kV-STg"/>
+                <outlet property="lblBar_type" destination="Q8s-R5-Wlk" id="bvd-z8-yUw"/>
+                <outlet property="lblProducer_name" destination="ZTF-yH-t0g" id="nnh-Ab-E0q"/>
                 <outlet property="lineX" destination="S1t-oe-wfS" id="aww-IQ-Dhr"/>
                 <outlet property="scrollBotals" destination="6Sk-3L-p3A" id="cLu-13-Ia2"/>
                 <outlet property="table" destination="pn3-vW-FCE" id="4ho-ta-pl0"/>

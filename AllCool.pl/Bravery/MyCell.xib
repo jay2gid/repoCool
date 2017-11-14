@@ -21,7 +21,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zxa-8F-E7b">
-                        <rect key="frame" x="8" y="7" width="184" height="49"/>
+                        <rect key="frame" x="8" y="7" width="359" height="49"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beerbarall.png" translatesAutoresizingMaskIntoConstraints="NO" id="mjT-fU-mOq">
@@ -29,7 +29,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brover Brovca" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9S2-ne-4Yt">
-                                <rect key="frame" x="48" y="0.0" width="144" height="49"/>
+                                <rect key="frame" x="48" y="0.0" width="318" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <nil key="textColor"/>
@@ -81,6 +81,9 @@
                             <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHY-O9-Rwa">
                                 <rect key="frame" x="8" y="0.0" width="168" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <action selector="tapButton:" destination="f0I-tY-pHb" eventType="touchUpInside" id="K31-8m-EWe"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -103,6 +106,9 @@
                             <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdN-Sg-pVJ">
                                 <rect key="frame" x="8" y="0.0" width="168" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <action selector="tapButton:" destination="f0I-tY-pHb" eventType="touchUpInside" id="qEN-O1-mST"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,6 +131,9 @@
                             <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Awe-yF-IAV">
                                 <rect key="frame" x="8" y="-1" width="168" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <action selector="tapButton:" destination="f0I-tY-pHb" eventType="touchUpInside" id="hzA-du-Awr"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -145,7 +154,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="polski brower rzemi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSd-dR-6zs">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="polski brower rzemi" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSd-dR-6zs">
                         <rect key="frame" x="14" y="184" width="285" height="42"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -158,7 +167,7 @@
                         <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
                         <state key="normal" image="next.png"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="La9-Hg-hCM">
+                    <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="La9-Hg-hCM">
                         <rect key="frame" x="4" y="180" width="371" height="51"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <connections>
@@ -167,6 +176,14 @@
                     </button>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="lblBar_type" destination="eeq-Hz-RUO" id="Rwl-eD-BJ2"/>
+                <outlet property="lblDescription" destination="LSd-dR-6zs" id="Sc1-NT-Xnl"/>
+                <outlet property="lblPhone" destination="rE0-LD-3Sz" id="NTl-7F-2r8"/>
+                <outlet property="lblProducer_name" destination="9S2-ne-4Yt" id="XcR-ty-FOR"/>
+                <outlet property="lblRegion" destination="3Rl-7p-Z2X" id="G6B-Nc-SXE"/>
+                <outlet property="lblWebsite" destination="leh-YB-ra9" id="zHa-cA-7Sd"/>
+            </connections>
             <point key="canvasLocation" x="-28.5" y="507"/>
         </tableViewCell>
         <view contentMode="scaleToFill" id="lr0-zw-QgD" customClass="MyCellView">

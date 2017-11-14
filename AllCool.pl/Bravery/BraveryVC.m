@@ -24,7 +24,7 @@
 
 @implementation BraveryVC
 
-@synthesize infoDic;
+@synthesize infoDic, imgLogo, avg_rating, lblProducer_name, lblBar_type;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,6 +53,13 @@
              if ([JSON[@"success"] integerValue] == 1)
              {
                  dict_Brewary = JSON;
+                 
+                 [imgLogo sd_setImageWithURL:[NSURL URLWithString:dict_Brewary[@"products"][0][@"image"]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
+                 avg_rating.rating = [dict_Brewary[@"products"][0][@"Avg_rating"] integerValue];
+                 lblProducer_name.text = dict_Brewary[@"products"][0][@"producer_name"];
+                 lblBar_type.text = dict_Brewary[@"products"][0][@"bar_type"];
+                 
+                 [table reloadData];
              }
              else
              {
@@ -93,32 +100,6 @@
     [scrollBotals setContentSize:CGSizeMake(WIDTH, HEIGHT)];
     
 }
-
-- (IBAction)tapSegmanets:(UIButton *)sender {
-
-    lineX.constant = WIDTH/3 * sender.tag;
-    
-    if (sender.tag == 0)
-    {
-        tableFlag = 1;
-        scrollBotals.hidden = true;
-        table.hidden = false;
-        [table reloadData];
-    }
-    else if (sender.tag == 1)
-    {
-        scrollBotals.hidden = false;
-        table.hidden = true;
-    }
-    else
-    {
-        tableFlag = 2;
-        scrollBotals.hidden = true;
-        scrollBotals.hidden = true;
-        [table reloadData];
-    }
-}
-
 
 - (IBAction)tapPlus:(id)sender
 {
@@ -232,8 +213,30 @@
      }];
 }
 
-
-
+- (IBAction)tapSegmanets:(UIButton *)sender
+{
+    lineX.constant = WIDTH/3 * sender.tag;
+    
+    if (sender.tag == 0)
+    {
+        tableFlag = 1;
+        scrollBotals.hidden = true;
+        table.hidden = false;
+        [table reloadData];
+    }
+    else if (sender.tag == 1)
+    {
+        scrollBotals.hidden = false;
+        table.hidden = true;
+    }
+    else
+    {
+        tableFlag = 2;
+        scrollBotals.hidden = true;
+        scrollBotals.hidden = true;
+        [table reloadData];
+    }
+}
 
 #pragma mark Table
 
@@ -243,7 +246,7 @@
     if (tableFlag == 1)
     {
         if (indexPath.row == 0) {
-            return  232;
+            return  234;
         }
         else
         {
@@ -258,7 +261,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    if (tableFlag == 1)
+    {
+        NSInteger count = [dict_Brewary[@"comment"] count];
+        
+        return count+1;
+    }
+    else
+    {
+        return 3;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -268,21 +280,29 @@
         if (indexPath.row == 0) {
 
             BtnCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:0];
+            
+            myCell.lblProducer_name.text = dict_Brewary[@"products"][0][@"producer_name"];
+            myCell.lblPhone.text = dict_Brewary[@"products"][0][@"phone"];
+            myCell.lblWebsite.text = dict_Brewary[@"products"][0][@"website"];
+            myCell.lblRegion.text = dict_Brewary[@"products"][0][@"region"];
+            myCell.lblBar_type.text = dict_Brewary[@"products"][0][@"bar_type"];
+            myCell.lblDescription.text = dict_Brewary[@"products"][0][@"description"];
+            
             return myCell;
         }
         else
         {
             RatingCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:3];
-            NSDictionary *dict ;
             
-            if (dict[@"name"])
-                cell.lblUserName.text = [NSString stringWithFormat:@"%@",dict[@"name"]];
+            NSDictionary *dict = dict_Brewary[@"comment"][indexPath.row-1];
             
-            if (dict[@"dat"])
-                cell.lblDateTime.text = [NSString stringWithFormat:@"%@",dict[@"dat"]];
+            cell.lblUserName.text = [NSString stringWithFormat:@"%@",dict[@"name"]];
             
-            if (dict[@"comment"])
-                cell.lblReview.text = [NSString stringWithFormat:@"%@",dict[@"comment"]];
+            cell.lblDateTime.text = [NSString stringWithFormat:@"%@",dict[@"dat"]];
+            
+            cell.lblReview.text = [NSString stringWithFormat:@"%@",dict[@"comment"]];
+            
+            cell.viewRating.rating = [dict[@"rating"] integerValue];
             
             return cell;        }
     }
