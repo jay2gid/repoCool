@@ -13,7 +13,6 @@
 {
     IBOutlet NSLayoutConstraint *lineX;
     IBOutlet UIScrollView *scrollBotals;
-    
 }
 @end
 
