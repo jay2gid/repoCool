@@ -9,11 +9,16 @@
 #import "BraveryVC.h"
 #import "MyCellView.h"
 #import "ViewAddRatingTobotal.h"
-
+#import "BtnCell.h"
+#import "PosterCell.h"
 @interface BraveryVC ()
 {
     IBOutlet NSLayoutConstraint *lineX;
     IBOutlet UIScrollView *scrollBotals;
+    NSDictionary *dict_Brewary;
+    IBOutlet UITableView *table;
+    
+    NSUInteger tableFlag;
 }
 @end
 
@@ -23,34 +28,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // -- Single Brawery Detail
     
-    /* NSDictionary *dict = @{@"uid":UserID, @"id":infoDic[@"id"]};
+    tableFlag = 1;
+    table.delegate = self;
+    table.dataSource = self;
 
-
-    SVHUD_START
-    [WebServiceCalls POST:@"vendorss/Brewary_Profile.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
-     {
-         SVHUD_STOP
-         NSLog(@"%@", JSON);
-         
-         @try
-         {
-             if ([JSON[@"success"] integerValue] == 1)
-             {
-                 [WebServiceCalls alert:JSON[@"message"]];
-             }
-             else
-             {
-                 [WebServiceCalls alert:JSON[@"message"]];
-             }
-         }
-         @catch (NSException *exception)
-         {  }
-         @finally
-         {  }         
-     }];*/
+    GET_HEADER_VIEW_WITH_BACK
+    header.title.text = @"Allcool.pl";
+    header.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -79,6 +64,7 @@
          @finally
          {  }
      }];
+    
     
     //[self loadCollectionScrollView];
 }
@@ -111,6 +97,26 @@
 - (IBAction)tapSegmanets:(UIButton *)sender {
 
     lineX.constant = WIDTH/3 * sender.tag;
+    
+    if (sender.tag == 0)
+    {
+        tableFlag = 1;
+        scrollBotals.hidden = true;
+        table.hidden = false;
+        [table reloadData];
+    }
+    else if (sender.tag == 1)
+    {
+        scrollBotals.hidden = false;
+        table.hidden = true;
+    }
+    else
+    {
+        tableFlag = 2;
+        scrollBotals.hidden = true;
+        scrollBotals.hidden = true;
+        [table reloadData];
+    }
 }
 
 
@@ -225,4 +231,74 @@
          }
      }];
 }
+
+
+
+
+#pragma mark Table
+
+
+-(CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableFlag == 1)
+    {
+        if (indexPath.row == 0) {
+            return  232;
+        }
+        else
+        {
+            return 85;
+        }
+    }
+   else
+   {
+       return 360;
+   }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableFlag == 1)
+    {
+        if (indexPath.row == 0) {
+
+            BtnCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:0];
+            return myCell;
+        }
+        else
+        {
+            RatingCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:3];
+            NSDictionary *dict ;
+            
+            if (dict[@"name"])
+                cell.lblUserName.text = [NSString stringWithFormat:@"%@",dict[@"name"]];
+            
+            if (dict[@"dat"])
+                cell.lblDateTime.text = [NSString stringWithFormat:@"%@",dict[@"dat"]];
+            
+            if (dict[@"comment"])
+                cell.lblReview.text = [NSString stringWithFormat:@"%@",dict[@"comment"]];
+            
+            return cell;        }
+    }
+    else
+    {
+        PosterCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:2];
+        return myCell;
+        
+    }
+   
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+
 @end

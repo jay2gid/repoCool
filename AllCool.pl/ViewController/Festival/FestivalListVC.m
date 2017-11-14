@@ -171,17 +171,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     FestListTVCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:2];
-    
     [cell.imgFestLogo sd_setImageWithURL:[NSURL URLWithString:arrFest[indexPath.row][@"f_logo"]] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
-    
     cell.lblFestName.text = arrFest[indexPath.row][@"f_name"];
-    
     cell.lblPlaceName.text = [NSString stringWithFormat:@"%@ %@, %@", arrFest[indexPath.row][@"street_name"], arrFest[indexPath.row][@"street_num"], arrFest[indexPath.row][@"city"]];
-    
     cell.lblDates.text = [NSString stringWithFormat:@"%@-%@", arrFest[indexPath.row][@"start_Date"], arrFest[indexPath.row][@"end_Date"]];
-    
     return cell;
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
