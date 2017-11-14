@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UIViewController *selfBack;
 
 @property (nonatomic, strong) NSString *FID;
-@property (nonatomic, readwrite) NSInteger isF_ID;
+@property (nonatomic, strong) NSString *VID;
+
+@property (nonatomic, readwrite) NSInteger isF_ID_Vid;
 
 @end

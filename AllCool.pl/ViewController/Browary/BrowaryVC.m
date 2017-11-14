@@ -79,6 +79,7 @@
         lbl.font = [UIFont systemFontOfSize:14];
         
         UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0,wd,wd)];
+        button.tag = i;
         [view addSubview:button];
         [button addTarget:self action:@selector(tapButton:) forControlEvents:UIControlEventTouchUpInside];
         [scrollData addSubview:view];
