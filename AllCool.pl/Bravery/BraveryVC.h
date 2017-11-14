@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ViewAddRatingTobotal.h"
 
-@interface BraveryVC : UIViewController<ratingSuccessDelegate>
+@interface BraveryVC : UIViewController<ratingSuccessDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property  (nonatomic, strong) NSDictionary *infoDic;
 

@@ -227,6 +227,8 @@
 		92B0CADF1F9C87AA0000AB4C /* BraveryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */; };
 		92B47A8F1FB8B3DC0091A8AD /* call_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 924F3D541FB5F9C900E4C1DF /* call_icon.png */; };
 		92B47A911FB8B77F0091A8AD /* MyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B47A901FB8B77F0091A8AD /* MyCell.xib */; };
+		92B47B4A1FBB42880091A8AD /* BtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B47B491FBB42880091A8AD /* BtnCell.m */; };
+		92B47B4D1FBB44F10091A8AD /* PosterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B47B4C1FBB44F10091A8AD /* PosterCell.m */; };
 		92C3C8441F7618B7008404C7 /* ACFloatingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C3C8431F7618B7008404C7 /* ACFloatingTextField.m */; };
 		92C3C8461F761997008404C7 /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3C8451F761997008404C7 /* ACFloatingTextfield.swift */; };
 		92C3C84A1F78150E008404C7 /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C3C8491F78150E008404C7 /* icon_back.png */; };
@@ -545,6 +547,10 @@
 		92B0CADD1F9C87AA0000AB4C /* BraveryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BraveryVC.h; sourceTree = "<group>"; };
 		92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BraveryVC.m; sourceTree = "<group>"; };
 		92B47A901FB8B77F0091A8AD /* MyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCell.xib; sourceTree = "<group>"; };
+		92B47B481FBB42880091A8AD /* BtnCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BtnCell.h; sourceTree = "<group>"; };
+		92B47B491FBB42880091A8AD /* BtnCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BtnCell.m; sourceTree = "<group>"; };
+		92B47B4B1FBB44F10091A8AD /* PosterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PosterCell.h; sourceTree = "<group>"; };
+		92B47B4C1FBB44F10091A8AD /* PosterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PosterCell.m; sourceTree = "<group>"; };
 		92C3C8421F7618B7008404C7 /* ACFloatingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACFloatingTextField.h; sourceTree = "<group>"; };
 		92C3C8431F7618B7008404C7 /* ACFloatingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACFloatingTextField.m; sourceTree = "<group>"; };
 		92C3C8451F761997008404C7 /* ACFloatingTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACFloatingTextfield.swift; sourceTree = "<group>"; };
@@ -1218,6 +1224,10 @@
 				92B0CADD1F9C87AA0000AB4C /* BraveryVC.h */,
 				92B0CADE1F9C87AA0000AB4C /* BraveryVC.m */,
 				92B47A901FB8B77F0091A8AD /* MyCell.xib */,
+				92B47B481FBB42880091A8AD /* BtnCell.h */,
+				92B47B491FBB42880091A8AD /* BtnCell.m */,
+				92B47B4B1FBB44F10091A8AD /* PosterCell.h */,
+				92B47B4C1FBB44F10091A8AD /* PosterCell.m */,
 				924F3EC51FB855F400E4C1DF /* MyCellView.h */,
 				924F3EC61FB855F400E4C1DF /* MyCellView.m */,
 			);
@@ -1572,6 +1582,7 @@
 				922BA59B1F600B520068A5C3 /* UIImage+WebP.m in Sources */,
 				922BA5B81F6017CD0068A5C3 /* ForgotPsswodVC.m in Sources */,
 				922BA5B41F6015540068A5C3 /* SignupVC.m in Sources */,
+				92B47B4D1FBB44F10091A8AD /* PosterCell.m in Sources */,
 				922BA5A51F600B520068A5C3 /* SVRadialGradientLayer.m in Sources */,
 				922BA58B1F600B520068A5C3 /* AFURLSessionManager.m in Sources */,
 				922BA5891F600B520068A5C3 /* AFURLRequestSerialization.m in Sources */,
@@ -1599,6 +1610,7 @@
 				922BA5871F600B520068A5C3 /* AFSecurityPolicy.m in Sources */,
 				92A2A9FF1F6D6E200000939D /* RadarVC.m in Sources */,
 				92ADAEDF1F5FC83B00501EA0 /* main.m in Sources */,
+				92B47B4A1FBB42880091A8AD /* BtnCell.m in Sources */,
 				922BA5901F600B520068A5C3 /* NSData+ImageContentType.m in Sources */,
 				922BA5D71F6167B90068A5C3 /* BearCell.m in Sources */,
 				922BA5A91F600B520068A5C3 /* WebServiceCalls.m in Sources */,
