@@ -196,7 +196,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OcS-Mh-IUr" customClass="StarRatingControl">
-                    <rect key="frame" x="8" y="225" width="145" height="25"/>
+                    <rect key="frame" x="8" y="225" width="176" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
@@ -221,7 +221,7 @@
                 <outlet property="lglName" destination="RT8-fA-n5E" id="nZY-Dl-oD6"/>
                 <outlet property="rating" destination="OcS-Mh-IUr" id="mOR-S9-vL1"/>
             </connections>
-            <point key="canvasLocation" x="-119" y="842.5"/>
+            <point key="canvasLocation" x="-120" y="815.5"/>
         </view>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="360" id="jqi-kn-lri" customClass="PosterCell">
             <rect key="frame" x="0.0" y="0.0" width="436" height="364"/>
@@ -239,7 +239,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDZ-al-Ywh">
-                                <rect key="frame" x="8" y="248" width="267" height="21"/>
+                                <rect key="frame" x="8" y="248" width="406" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -270,7 +270,7 @@
                 <outlet property="lblDesc" destination="N1v-eo-EuI" id="AAG-IA-c4h"/>
                 <outlet property="lblTitle" destination="c5S-Ah-xiX" id="ERQ-V5-ykP"/>
             </connections>
-            <point key="canvasLocation" x="-9" y="1215"/>
+            <point key="canvasLocation" x="2" y="1188"/>
         </tableViewCell>
     </objects>
     <resources>
