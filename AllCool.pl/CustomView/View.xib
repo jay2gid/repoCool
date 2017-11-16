@@ -155,12 +155,90 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="txtAddressVender" destination="dEG-3D-WPa" id="PgD-T6-cuF"/>
                 <outlet property="txtComment" destination="UaZ-tg-MtO" id="meB-uW-RiP"/>
                 <outlet property="txtEmail" destination="xrZ-Wy-9x4" id="Vlc-HQ-FiW"/>
                 <outlet property="txtName" destination="TML-tm-Mdw" id="soc-JL-pC1"/>
+                <outlet property="txtNameVender" destination="Upr-jo-ANn" id="wAC-Bb-mS2"/>
                 <outlet property="viewStarRating" destination="DZx-fk-Tp4" id="y6P-BG-bmi"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="798.5"/>
+        </view>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="Rn5-R8-jWl" customClass="ViewAddRatingTobotal">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h4z-tD-sv5">
+                    <rect key="frame" x="23" y="118" width="328" height="431"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zasugeruj ciekawy bar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nmr-Aa-s7s">
+                            <rect key="frame" x="18" y="14" width="302" height="42"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="imie" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OnP-qb-tGy" customClass="ACFloatingTextfield" customModule="AllCool_pl" customModuleProvider="target">
+                            <rect key="frame" x="18" y="80" width="292" height="50"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="twoj adres emial" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ops-g6-lsX" customClass="ACFloatingTextfield" customModule="AllCool_pl" customModuleProvider="target">
+                            <rect key="frame" x="18" y="155" width="292" height="50"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="nazwa baru" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Upr-jo-ANn" customClass="ACFloatingTextfield" customModule="AllCool_pl" customModuleProvider="target">
+                            <rect key="frame" x="18" y="230" width="292" height="52"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ih-MR-Sb9">
+                            <rect key="frame" x="206" y="370" width="104" height="45"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="WYSLIJ">
+                                <color key="titleColor" red="0.71764705880000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="tapSuggestVender:" destination="l47-JZ-QiW" eventType="touchUpInside" id="dvm-ed-TeM"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfR-1D-lYu">
+                            <rect key="frame" x="74" y="370" width="104" height="45"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="WROC">
+                                <color key="titleColor" red="0.71764705880000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="tapCross:" destination="Rn5-R8-jWl" eventType="touchUpInside" id="EmD-DJ-4R7"/>
+                            </connections>
+                        </button>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="adres baru" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEG-3D-WPa" customClass="ACFloatingTextfield" customModule="AllCool_pl" customModuleProvider="target">
+                            <rect key="frame" x="18" y="300" width="292" height="52"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="txtEmail" destination="ops-g6-lsX" id="zsa-Q0-erI"/>
+                <outlet property="txtName" destination="OnP-qb-tGy" id="Cl0-mJ-h03"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="1564.5"/>
         </view>
     </objects>
     <resources>

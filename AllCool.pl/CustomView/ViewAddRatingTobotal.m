@@ -156,5 +156,54 @@
    else return true;
 }
 
+#pragma mark Suggest Vender API
+/// Suggest Vender API
+
+- (IBAction)tapSuggestVender:(id)sender {
+    
+    
+    if (txtNameVender.text.length > 0 && txtAddressVender.text.length > 0)
+    {
+    
+    NSDictionary *dict = @{@"endusername":UserID,
+                           @"endemail":User_Email,
+                           @"vendor_name":txtNameVender.text,
+                           @"v_address":txtAddressVender.text};
+   
+    
+    SVHUD_START
+    [WebServiceCalls POST:@"vendorss/suggest_vendor.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
+     {
+         SVHUD_STOP
+         NSLog(@"%@", JSON);
+         @try
+         {
+             if ([JSON[@"success"] integerValue] == 1)
+             {
+                 [self removeFromSuperview];
+                 [self.selfBack.navigationController.view makeToast:@"Data Submitted"];
+                 [delegate didSuccessRating];
+             }
+             else
+             {
+                 if (JSON[@"message"])
+                     [WebServiceCalls alert:JSON[@"message"]];
+             }
+         }
+         @catch (NSException *exception)
+         {
+             // [WebServiceCalls alert:@"Unable to fetch data. try again"];
+         }
+         @finally
+         {
+         }
+     }];
+    
+    }
+    
+}
+
+
+
 
 @end

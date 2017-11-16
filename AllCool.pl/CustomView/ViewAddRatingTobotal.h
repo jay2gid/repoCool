@@ -10,6 +10,7 @@
 
 @protocol ratingSuccessDelegate <NSObject>
 -(void)didSuccessRating;
+-(void)didSuccessVenderSuggest;
 @end;
 
 
@@ -19,6 +20,11 @@
     IBOutlet ACFloatingTextfield *txtName;
     IBOutlet ACFloatingTextfield *txtEmail;
     IBOutlet ACFloatingTextfield *txtComment;
+    
+    
+    IBOutlet ACFloatingTextfield *txtNameVender;
+    IBOutlet ACFloatingTextfield *txtAddressVender;
+    
 }
 @property (nonatomic, strong) NSDictionary *dictBear;
 
