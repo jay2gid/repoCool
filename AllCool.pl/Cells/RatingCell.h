@@ -12,5 +12,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *lblUserName;
 @property (strong, nonatomic) IBOutlet UILabel *lblDateTime;
 @property (strong, nonatomic) IBOutlet UILabel *lblReview;
+@property (strong, nonatomic) IBOutlet StarRatingControl *viewRating;
 
 @end

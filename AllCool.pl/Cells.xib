@@ -272,6 +272,7 @@
                 <outlet property="lblDateTime" destination="hmu-bP-gK5" id="Jp6-vP-vIS"/>
                 <outlet property="lblReview" destination="t8n-lq-OtQ" id="lnt-o1-T6i"/>
                 <outlet property="lblUserName" destination="1GM-9h-4Dc" id="UAO-4O-702"/>
+                <outlet property="viewRating" destination="5rl-70-r7E" id="xCV-f4-MGW"/>
             </connections>
             <point key="canvasLocation" x="70.5" y="422"/>
         </tableViewCell>
