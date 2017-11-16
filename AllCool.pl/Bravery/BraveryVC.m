@@ -19,6 +19,8 @@
     IBOutlet UITableView *table;
     
     NSUInteger tableFlag;
+    
+    NSArray *arrBeer;
 }
 @end
 
@@ -52,6 +54,11 @@
          {
              if ([JSON[@"success"] integerValue] == 1)
              {
+                 if (!arrBeer)
+                 {
+                     [self getAllBeer];
+                 }
+                 
                  dict_Brewary = JSON;
                  
                  [imgLogo sd_setImageWithURL:[NSURL URLWithString:dict_Brewary[@"products"][0][@"image"]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
@@ -71,12 +78,36 @@
          @finally
          {  }
      }];
-    
-    
-    //[self loadCollectionScrollView];
+
 }
 
-
+-(void)getAllBeer
+{
+    NSString *url = [NSString stringWithFormat:@"vendorss/Bravery_beer.php?id=%@", infoDic[@"id"]];
+    SVHUD_START
+    [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)
+     {
+         SVHUD_STOP
+         NSLog(@"%@", JSON);
+         @try
+         {
+             if ([JSON[@"success"] integerValue] == 1)
+             {
+                 arrBeer = JSON[@"products"];
+                 
+                 [self loadCollectionScrollView];
+             }
+             else
+             {
+                 [WebServiceCalls alert:JSON[@"message"]];
+             }
+         }
+         @catch (NSException *exception)
+         {  }
+         @finally
+         {  }
+     }];
+}
 
 -(void)loadCollectionScrollView
 {
@@ -190,6 +221,7 @@
 
 -(void)didSuccessRating
 {
+    [self viewDidAppear:NO];
     NSLog(@"Comment Added");
 }
 
@@ -228,6 +260,15 @@
     {
         scrollBotals.hidden = false;
         table.hidden = true;
+        
+        if (!arrBeer)
+        {
+            [self getAllBeer];
+        }
+        else
+        {
+            [self loadCollectionScrollView];
+        }
     }
     else
     {
