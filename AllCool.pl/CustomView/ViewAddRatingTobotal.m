@@ -20,6 +20,8 @@
     txtEmail.text = User_Email;
     
     txtComment.delegate  = self;
+    txtNameVender.delegate  = self;
+    txtAddressVender.delegate  = self;
 }
 
 - (IBAction)btnSendClk:(id)sender
@@ -161,7 +163,8 @@
 #pragma mark Suggest Vender API
 /// Suggest Vender API
 
-- (IBAction)tapSuggestVender:(id)sender {
+- (IBAction)tapSuggestVender:(id)sender
+{
     
     
     if (txtNameVender.text.length > 0 && txtAddressVender.text.length > 0)
@@ -184,21 +187,14 @@
                  [self removeFromSuperview];
                  [self.selfBack.navigationController.view makeToast:@"Data Submitted"];
              }
-             else
+             @catch (NSException *exception)
              {
-                 if (JSON[@"message"])
-                     [WebServiceCalls alert:JSON[@"message"]];
+                 // [WebServiceCalls alert:@"Unable to fetch data. try again"];
              }
-         }
-         @catch (NSException *exception)
-         {
-             // [WebServiceCalls alert:@"Unable to fetch data. try again"];
-         }
-         @finally
-         {
-         }
-     }];
-    
+             @finally
+             {
+             }
+         }];
     }
     
 }

@@ -19,6 +19,8 @@
     IBOutlet UITableView *table;
     
     NSUInteger tableFlag;
+    
+    NSArray *arrBeer;
 }
 @end
 
@@ -52,6 +54,11 @@
          {
              if ([JSON[@"success"] integerValue] == 1)
              {
+                 if (!arrBeer)
+                 {
+                     [self getAllBeer];
+                 }
+                 
                  dict_Brewary = JSON;
                  
                  [imgLogo sd_setImageWithURL:[NSURL URLWithString:dict_Brewary[@"products"][0][@"image"]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
@@ -71,21 +78,53 @@
          @finally
          {  }
      }];
-    
-    
-    //[self loadCollectionScrollView];
+
 }
 
-
+-(void)getAllBeer
+{
+    NSString *url = [NSString stringWithFormat:@"vendorss/Bravery_beer.php?id=%@", infoDic[@"id"]];
+    SVHUD_START
+    [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)
+     {
+         SVHUD_STOP
+         NSLog(@"%@", JSON);
+         @try
+         {
+             if ([JSON[@"success"] integerValue] == 1)
+             {
+                 arrBeer = JSON[@"products"];
+                 
+                 [self loadCollectionScrollView];
+             }
+             else
+             {
+                 [WebServiceCalls alert:JSON[@"message"]];
+             }
+         }
+         @catch (NSException *exception)
+         {  }
+         @finally
+         {  }
+     }];
+}
 
 -(void)loadCollectionScrollView
 {
     float cellHeight = HEIGHT/3;
 
-    for (int i = 0; i<5; i++) {
-
+    for (int i = 0; i<arrBeer.count; i++)
+    {
         MyCellView *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:1];
         myCell.frame = CGRectMake(WIDTH/2* (float)(i%2), i/2 *cellHeight, WIDTH/2, cellHeight);
+        
+        NSString *url = [NSString stringWithFormat:@"%@", arrBeer[i][@"image"]];
+        [myCell.imgBoatal sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
+        
+        myCell.lglName.text = [NSString stringWithFormat:@"%@", arrBeer[i][@"product_name"]];
+        
+        myCell.rating.rating = [arrBeer[i][@"Avg_rating"] integerValue];
+        
         [scrollBotals addSubview:myCell];
 
         UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0, (i/2 + 1)*cellHeight, WIDTH, 0.5)];
@@ -153,7 +192,14 @@
                                    style:UIAlertActionStyleDefault
                                    handler:^(UIAlertAction * action)
                                    {
+                                       ViewAddRatingTobotal *view1 = [[[NSBundle mainBundle] loadNibNamed:@"View" owner:self options:nil]objectAtIndex:2];
+                                       view1.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
+                                       view1.selfBack = self;
+                                       view1.delegate = self;
+                                       [self.view addSubview:view1];
+                                       
                                        [view dismissViewControllerAnimated:YES completion:nil];
+                                       
                                    }];
     
     UIAlertAction* away = [UIAlertAction
@@ -190,7 +236,13 @@
 
 -(void)didSuccessRating
 {
+    [self viewDidAppear:NO];
     NSLog(@"Comment Added");
+}
+
+-(void)didSuccessVenderSuggest
+{
+    NSLog(@"Sujjestion Added.");
 }
 
 -(void)Api_URL:(NSString *)url Data:(NSDictionary *)dict
@@ -228,6 +280,15 @@
     {
         scrollBotals.hidden = false;
         table.hidden = true;
+        
+        if (!arrBeer)
+        {
+            [self getAllBeer];
+        }
+        else
+        {
+            [self loadCollectionScrollView];
+        }
     }
     else
     {
@@ -239,7 +300,6 @@
 }
 
 #pragma mark Table
-
 
 -(CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

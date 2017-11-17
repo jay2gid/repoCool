@@ -42,4 +42,5 @@
 #import "FavBravery.h"
 #import "FestivalListVC.h"
 #import "RatingCell.h"
+#import "DescripionVC.h"
 #endif

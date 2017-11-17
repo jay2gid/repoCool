@@ -39,15 +39,12 @@
         
     }
     
-    if (sender.tag == 5) {
-        
+    if (sender.tag == 5)
+    {
+        UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        DescripionVC *obj = [storybord instantiateViewControllerWithIdentifier:@"DescripionVC"];
+        [self.selfBack.navigationController pushViewController:obj animated:YES];
     }
-}
-
-
-- (IBAction)tapBtnStatus:(id)sender {
-    
-    
 }
 
 @end
