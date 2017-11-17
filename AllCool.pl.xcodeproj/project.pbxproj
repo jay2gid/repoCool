@@ -240,6 +240,7 @@
 		C30CD3291F798DD20053C22B /* RatingTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C30CD3281F798DD20053C22B /* RatingTVCell.m */; };
 		C30CD32C1F798E360053C22B /* CategoryTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C30CD32B1F798E360053C22B /* CategoryTVCell.m */; };
 		C33985921F7E9BF900F33AF8 /* FestListTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33985911F7E9BF900F33AF8 /* FestListTVCell.m */; };
+		FA8483051FBF386000D1CF4E /* DescripionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8483041FBF386000D1CF4E /* DescripionVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -569,6 +570,8 @@
 		C30CD32B1F798E360053C22B /* CategoryTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTVCell.m; sourceTree = "<group>"; };
 		C33985901F7E9BF900F33AF8 /* FestListTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FestListTVCell.h; sourceTree = "<group>"; };
 		C33985911F7E9BF900F33AF8 /* FestListTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FestListTVCell.m; sourceTree = "<group>"; };
+		FA8483031FBF386000D1CF4E /* DescripionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescripionVC.h; sourceTree = "<group>"; };
+		FA8483041FBF386000D1CF4E /* DescripionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DescripionVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1230,6 +1233,8 @@
 				92B47B4C1FBB44F10091A8AD /* PosterCell.m */,
 				924F3EC51FB855F400E4C1DF /* MyCellView.h */,
 				924F3EC61FB855F400E4C1DF /* MyCellView.m */,
+				FA8483031FBF386000D1CF4E /* DescripionVC.h */,
+				FA8483041FBF386000D1CF4E /* DescripionVC.m */,
 			);
 			path = Bravery;
 			sourceTree = "<group>";
@@ -1571,6 +1576,7 @@
 				922BA59E1F600B520068A5C3 /* UIView+WebCacheOperation.m in Sources */,
 				922BA5A41F600B520068A5C3 /* SVProgressHUD.m in Sources */,
 				922BA5A21F600B520068A5C3 /* SVIndefiniteAnimatedView.m in Sources */,
+				FA8483051FBF386000D1CF4E /* DescripionVC.m in Sources */,
 				9208E3B31F79F59B0031BA48 /* ViewAddRatingTobotal.m in Sources */,
 				920DD8001FA9C38C00267490 /* RatingCell.m in Sources */,
 				C33985921F7E9BF900F33AF8 /* FestListTVCell.m in Sources */,

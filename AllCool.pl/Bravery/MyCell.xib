@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="234"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f0I-tY-pHb" id="j16-m0-k3l">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="233.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="234"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zxa-8F-E7b">
@@ -171,7 +171,7 @@
                         <rect key="frame" x="4" y="180" width="371" height="51"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <connections>
-                            <action selector="tapBtnStatus:" destination="f0I-tY-pHb" eventType="touchUpInside" id="qJq-DC-tSv"/>
+                            <action selector="tapButton:" destination="f0I-tY-pHb" eventType="touchUpInside" id="taY-na-95G"/>
                         </connections>
                     </button>
                 </subviews>
@@ -244,7 +244,7 @@
             <rect key="frame" x="0.0" y="0.0" width="436" height="364"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jqi-kn-lri" id="rkX-wE-RI2">
-                <rect key="frame" x="0.0" y="0.0" width="436" height="363.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="436" height="363"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOf-IU-xiR">

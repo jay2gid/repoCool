@@ -113,10 +113,18 @@
 {
     float cellHeight = HEIGHT/3;
 
-    for (int i = 0; i<5; i++) {
-
+    for (int i = 0; i<arrBeer.count; i++)
+    {
         MyCellView *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:1];
         myCell.frame = CGRectMake(WIDTH/2* (float)(i%2), i/2 *cellHeight, WIDTH/2, cellHeight);
+        
+        NSString *url = [NSString stringWithFormat:@"%@", arrBeer[i][@"image"]];
+        [myCell.imgBoatal sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
+        
+        myCell.lglName.text = [NSString stringWithFormat:@"%@", arrBeer[i][@"product_name"]];
+        
+        myCell.rating.rating = [arrBeer[i][@"Avg_rating"] integerValue];
+        
         [scrollBotals addSubview:myCell];
 
         UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0, (i/2 + 1)*cellHeight, WIDTH, 0.5)];
@@ -184,7 +192,14 @@
                                    style:UIAlertActionStyleDefault
                                    handler:^(UIAlertAction * action)
                                    {
+                                       ViewAddRatingTobotal *view1 = [[[NSBundle mainBundle] loadNibNamed:@"View" owner:self options:nil]objectAtIndex:2];
+                                       view1.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
+                                       view1.selfBack = self;
+                                       view1.delegate = self;
+                                       [self.view addSubview:view1];
+                                       
                                        [view dismissViewControllerAnimated:YES completion:nil];
+                                       
                                    }];
     
     UIAlertAction* away = [UIAlertAction
@@ -223,6 +238,11 @@
 {
     [self viewDidAppear:NO];
     NSLog(@"Comment Added");
+}
+
+-(void)didSuccessVenderSuggest
+{
+    NSLog(@"Sujjestion Added.");
 }
 
 -(void)Api_URL:(NSString *)url Data:(NSDictionary *)dict
@@ -280,7 +300,6 @@
 }
 
 #pragma mark Table
-
 
 -(CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
