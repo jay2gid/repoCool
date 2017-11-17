@@ -156,6 +156,8 @@
    else return true;
 }
 
+
+
 #pragma mark Suggest Vender API
 /// Suggest Vender API
 
@@ -170,7 +172,6 @@
                            @"vendor_name":txtNameVender.text,
                            @"v_address":txtAddressVender.text};
    
-    
     SVHUD_START
     [WebServiceCalls POST:@"vendorss/suggest_vendor.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
      {
@@ -178,11 +179,10 @@
          NSLog(@"%@", JSON);
          @try
          {
-             if ([JSON[@"success"] integerValue] == 1)
+             if([JSON[@"success"] integerValue] == 1)
              {
                  [self removeFromSuperview];
                  [self.selfBack.navigationController.view makeToast:@"Data Submitted"];
-                 [delegate didSuccessRating];
              }
              else
              {
