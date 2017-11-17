@@ -169,6 +169,14 @@
     
     if (txtNameVender.text.length > 0 && txtAddressVender.text.length > 0)
     {
+        NSDictionary *dict = @{@"endusername":UserID,
+                               @"endemail":User_Email,
+                               @"vendor_name":txtNameVender.text,
+                               @"v_address":txtAddressVender.text};
+        
+        
+        SVHUD_START
+        [WebServiceCalls POST:@"vendorss/suggest_vendor.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
     
     NSDictionary *dict = @{@"endusername":UserID,
                            @"endemail":User_Email,
