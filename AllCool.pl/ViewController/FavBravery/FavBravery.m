@@ -8,6 +8,8 @@
 
 #import "FavBravery.h"
 #import "BraveryCell.h"
+#import "PubVC.h"
+
 @interface FavBravery ()
 {
     IBOutlet UITableView *tblList;
@@ -128,9 +130,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  //    BotalVC *OBJ = [self.storyboard instantiateViewControllerWithIdentifier:@"BotalVC"];
-  //    OBJ.dictBeer = arrBeer[indexPath.row];
-  //    [self.navigationController pushViewController:OBJ animated:YES];
+    PubVC *obj = [[PubVC alloc]initWithNibName:@"PubVC" bundle:nil];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
 -(void)methodDauj:(UIButton*)sender

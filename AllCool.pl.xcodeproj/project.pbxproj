@@ -84,6 +84,10 @@
 		922BA61F1F62BEDD0068A5C3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 922BA61E1F62BEDD0068A5C3 /* icon.png */; };
 		9234505E1F91111400418E2C /* ViewNotesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234505D1F91111400418E2C /* ViewNotesList.m */; };
 		923450601F91113B00418E2C /* ViewNotesList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9234505F1F91113B00418E2C /* ViewNotesList.xib */; };
+		924165CB1FC9AEBB00946CC0 /* PubVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 924165C91FC9AEBB00946CC0 /* PubVC.m */; };
+		924165CC1FC9AEBB00946CC0 /* PubVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 924165CA1FC9AEBB00946CC0 /* PubVC.xib */; };
+		924165CF1FC9B07B00946CC0 /* PubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 924165CE1FC9B07B00946CC0 /* PubCell.xib */; };
+		924165D31FCB0B6400946CC0 /* FirstPubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 924165D21FCB0B6400946CC0 /* FirstPubCell.m */; };
 		924F3EC71FB855F400E4C1DF /* MyCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F3EC61FB855F400E4C1DF /* MyCellView.m */; };
 		9284B0E71FAF109E009B5ABB /* ViewSaveInList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9284B0E61FAF109E009B5ABB /* ViewSaveInList.m */; };
 		9284B0E91FAF10B5009B5ABB /* ViewSaveinList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9284B0E81FAF10B5009B5ABB /* ViewSaveinList.xib */; };
@@ -389,6 +393,13 @@
 		9234505C1F91111400418E2C /* ViewNotesList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewNotesList.h; path = CustomView/ViewNotesList.h; sourceTree = "<group>"; };
 		9234505D1F91111400418E2C /* ViewNotesList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewNotesList.m; path = CustomView/ViewNotesList.m; sourceTree = "<group>"; };
 		9234505F1F91113B00418E2C /* ViewNotesList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ViewNotesList.xib; path = CustomView/ViewNotesList.xib; sourceTree = "<group>"; };
+		924165C81FC9AEBB00946CC0 /* PubVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubVC.h; sourceTree = "<group>"; };
+		924165C91FC9AEBB00946CC0 /* PubVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PubVC.m; sourceTree = "<group>"; };
+		924165CA1FC9AEBB00946CC0 /* PubVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PubVC.xib; sourceTree = "<group>"; };
+		924165CE1FC9B07B00946CC0 /* PubCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PubCell.xib; sourceTree = "<group>"; };
+		924165D01FC9B44E00946CC0 /* verified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = verified.png; sourceTree = "<group>"; };
+		924165D11FCB0B6400946CC0 /* FirstPubCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPubCell.h; sourceTree = "<group>"; };
+		924165D21FCB0B6400946CC0 /* FirstPubCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPubCell.m; sourceTree = "<group>"; };
 		924F3D541FB5F9C900E4C1DF /* call_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_icon.png; sourceTree = "<group>"; };
 		924F3EC51FB855F400E4C1DF /* MyCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCellView.h; sourceTree = "<group>"; };
 		924F3EC61FB855F400E4C1DF /* MyCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCellView.m; sourceTree = "<group>"; };
@@ -882,6 +893,7 @@
 		922BA5D11F6164C30068A5C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				924165CD1FC9AEC400946CC0 /* Pub */,
 				92B0CAD81F9C7E8B0000AB4C /* Bravery */,
 				922BA5C91F6023550068A5C3 /* Splash */,
 				922BA5BD1F601B870068A5C3 /* FirstVC */,
@@ -969,6 +981,20 @@
 				9234505F1F91113B00418E2C /* ViewNotesList.xib */,
 			);
 			name = NotesList;
+			sourceTree = "<group>";
+		};
+		924165CD1FC9AEC400946CC0 /* Pub */ = {
+			isa = PBXGroup;
+			children = (
+				924165C81FC9AEBB00946CC0 /* PubVC.h */,
+				924165C91FC9AEBB00946CC0 /* PubVC.m */,
+				924165CA1FC9AEBB00946CC0 /* PubVC.xib */,
+				924165CE1FC9B07B00946CC0 /* PubCell.xib */,
+				924165D11FCB0B6400946CC0 /* FirstPubCell.h */,
+				924165D21FCB0B6400946CC0 /* FirstPubCell.m */,
+			);
+			name = Pub;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		9289124E1F9266D400890E25 /* FloatingButtons */ = {
@@ -1075,6 +1101,7 @@
 				92ADAEF41F5FC99800501EA0 /* allcoolicon */,
 				92A2AA151F7007AC0000939D /* bear.png */,
 				924F3D541FB5F9C900E4C1DF /* call_icon.png */,
+				924165D01FC9B44E00946CC0 /* verified.png */,
 				92ADAEDD1F5FC83B00501EA0 /* Supporting Files */,
 			);
 			path = AllCool.pl;
@@ -1380,6 +1407,7 @@
 				92ADAF811F5FC99800501EA0 /* clock_red.png in Resources */,
 				92ADAF6E1F5FC99800501EA0 /* banner002.jpg in Resources */,
 				92ADAFDA1F5FC99800501EA0 /* user.png in Resources */,
+				924165CC1FC9AEBB00946CC0 /* PubVC.xib in Resources */,
 				9284B0E91FAF10B5009B5ABB /* ViewSaveinList.xib in Resources */,
 				92ADAF731F5FC99800501EA0 /* beermenu.png in Resources */,
 				92ADAF961F5FC99800501EA0 /* eye.png in Resources */,
@@ -1493,6 +1521,7 @@
 				C30CD3201F7983330053C22B /* FestCell.xib in Resources */,
 				92ADAF891F5FC99800501EA0 /* dummyuser.png in Resources */,
 				92ADAFCB1F5FC99800501EA0 /* promotin.jpg in Resources */,
+				924165CF1FC9B07B00946CC0 /* PubCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1637,8 +1666,10 @@
 				922BA6171F62A0AF0068A5C3 /* BrowaryVC.m in Sources */,
 				C30CD3291F798DD20053C22B /* RatingTVCell.m in Sources */,
 				922BA58E1F600B520068A5C3 /* Reachability.m in Sources */,
+				924165CB1FC9AEBB00946CC0 /* PubVC.m in Sources */,
 				922BA58F1F600B520068A5C3 /* MKAnnotationView+WebCache.m in Sources */,
 				922BA5921F600B520068A5C3 /* SDWebImageCompat.m in Sources */,
+				924165D31FCB0B6400946CC0 /* FirstPubCell.m in Sources */,
 				922BA5981F600B520068A5C3 /* UIButton+WebCache.m in Sources */,
 				922BA5E21F616D040068A5C3 /* FavBravery.m in Sources */,
 				928912511F9266FE00890E25 /* FloatingButton.m in Sources */,

@@ -255,12 +255,12 @@
          
          if ([JSON[@"success"] integerValue] == 1)
          {
-             [WebServiceCalls alert:JSON[@"message"]];
+             [self.navigationController.view makeToast:JSON[@"message"]];
              [self viewDidAppear:NO];
          }
          else
          {
-             [WebServiceCalls alert:JSON[@"message"]];
+             [self.navigationController.view makeToast:JSON[@"message"]];
          }
      }];
 }
@@ -337,8 +337,8 @@
 {
     if (tableFlag == 1)
     {
-        if (indexPath.row == 0) {
-
+        if (indexPath.row == 0)
+        {
             BtnCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:0];
             
             myCell.lblProducer_name.text = dict_Brewary[@"products"][0][@"producer_name"];
@@ -348,6 +348,7 @@
             myCell.lblBar_type.text = dict_Brewary[@"products"][0][@"bar_type"];
             myCell.lblDescription.text = dict_Brewary[@"products"][0][@"description"];
             
+            myCell.selfBack = self;
             return myCell;
         }
         else
@@ -364,15 +365,14 @@
             
             cell.viewRating.rating = [dict[@"rating"] integerValue];
             
-            return cell;        }
+            return cell;
+        }
     }
     else
     {
         PosterCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:2];
         return myCell;
-        
     }
-   
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -36,7 +36,6 @@
     GET_HEADER_VIEW_WITH_BACK
     header.title.text = @"Allcool.pl";
 
-    
     viewStar.rating = 4;
     
     btnCall.layer.borderWidth = 1;
@@ -466,7 +465,9 @@
          
          if ([JSON[@"success"] integerValue] == 1)
          {
-             [WebServiceCalls alert:JSON[@"message"]];
+             [self.navigationController.view makeToast:JSON[@"message"]];
+
+             // [WebServiceCalls alert:JSON[@"message"]];
              [self festivalDetails];
          }
          else
