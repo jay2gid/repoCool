@@ -21,7 +21,13 @@
  
     IBOutlet UITableView *table;
     
-    /// sanja
+    
+    
+    IBOutlet UIView *viewMenuSegment;
+    
+    
+    IBOutlet UIScrollView *scrollBoltals;
+    
 }
 
 @end

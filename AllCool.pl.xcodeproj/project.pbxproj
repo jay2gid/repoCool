@@ -89,6 +89,7 @@
 		924165CF1FC9B07B00946CC0 /* PubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 924165CE1FC9B07B00946CC0 /* PubCell.xib */; };
 		924165D31FCB0B6400946CC0 /* FirstPubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 924165D21FCB0B6400946CC0 /* FirstPubCell.m */; };
 		924F3EC71FB855F400E4C1DF /* MyCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F3EC61FB855F400E4C1DF /* MyCellView.m */; };
+		925F6E381FCB40A400FC3EC8 /* PosterCellPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 925F6E371FCB40A400FC3EC8 /* PosterCellPub.m */; };
 		9284B0E71FAF109E009B5ABB /* ViewSaveInList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9284B0E61FAF109E009B5ABB /* ViewSaveInList.m */; };
 		9284B0E91FAF10B5009B5ABB /* ViewSaveinList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9284B0E81FAF10B5009B5ABB /* ViewSaveinList.xib */; };
 		928912511F9266FE00890E25 /* FloatingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 928912501F9266FE00890E25 /* FloatingButton.m */; };
@@ -403,6 +404,8 @@
 		924F3D541FB5F9C900E4C1DF /* call_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_icon.png; sourceTree = "<group>"; };
 		924F3EC51FB855F400E4C1DF /* MyCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCellView.h; sourceTree = "<group>"; };
 		924F3EC61FB855F400E4C1DF /* MyCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCellView.m; sourceTree = "<group>"; };
+		925F6E361FCB40A400FC3EC8 /* PosterCellPub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PosterCellPub.h; sourceTree = "<group>"; };
+		925F6E371FCB40A400FC3EC8 /* PosterCellPub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PosterCellPub.m; sourceTree = "<group>"; };
 		9284B0E51FAF109E009B5ABB /* ViewSaveInList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewSaveInList.h; path = CustomView/ViewSaveInList.h; sourceTree = "<group>"; };
 		9284B0E61FAF109E009B5ABB /* ViewSaveInList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewSaveInList.m; path = CustomView/ViewSaveInList.m; sourceTree = "<group>"; };
 		9284B0E81FAF10B5009B5ABB /* ViewSaveinList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewSaveinList.xib; sourceTree = "<group>"; };
@@ -989,12 +992,22 @@
 				924165C81FC9AEBB00946CC0 /* PubVC.h */,
 				924165C91FC9AEBB00946CC0 /* PubVC.m */,
 				924165CA1FC9AEBB00946CC0 /* PubVC.xib */,
-				924165CE1FC9B07B00946CC0 /* PubCell.xib */,
-				924165D11FCB0B6400946CC0 /* FirstPubCell.h */,
-				924165D21FCB0B6400946CC0 /* FirstPubCell.m */,
+				925F6E391FCB40F000FC3EC8 /* Cells */,
 			);
 			name = Pub;
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		925F6E391FCB40F000FC3EC8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				924165CE1FC9B07B00946CC0 /* PubCell.xib */,
+				924165D11FCB0B6400946CC0 /* FirstPubCell.h */,
+				924165D21FCB0B6400946CC0 /* FirstPubCell.m */,
+				925F6E361FCB40A400FC3EC8 /* PosterCellPub.h */,
+				925F6E371FCB40A400FC3EC8 /* PosterCellPub.m */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		9289124E1F9266D400890E25 /* FloatingButtons */ = {
@@ -1676,6 +1689,7 @@
 				922BA5C01F601C3C0068A5C3 /* HeaderView.m in Sources */,
 				9208E3B81F79F8D30031BA48 /* ProfilVC.m in Sources */,
 				C30CD3261F798D960053C22B /* ProgramTVCell.m in Sources */,
+				925F6E381FCB40A400FC3EC8 /* PosterCellPub.m in Sources */,
 				922BA59C1F600B520068A5C3 /* UIImageView+HighlightedWebCache.m in Sources */,
 				922BA5991F600B520068A5C3 /* UIImage+GIF.m in Sources */,
 				922BA5911F600B520068A5C3 /* SDImageCache.m in Sources */,
