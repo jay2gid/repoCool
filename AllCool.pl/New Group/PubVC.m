@@ -21,6 +21,7 @@
  
     IBOutlet UITableView *table;
     
+    /// sanja
 }
 
 @end
