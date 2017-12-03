@@ -22,4 +22,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageOne;
 @property (strong, nonatomic) IBOutlet UIImageView *imageTwo;
 
+@property (strong, nonatomic) IBOutlet UIView *viewDesc;
+
 @end

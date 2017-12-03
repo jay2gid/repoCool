@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@import GoogleMaps;
+@import GooglePlaces;
 
-@interface FirstVC : UIViewController
+@interface FirstVC : UIViewController<GMSMapViewDelegate,UIGestureRecognizerDelegate>
 
 @end

@@ -10,4 +10,7 @@
 
 @interface PubVC : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
+@property  (nonatomic, strong) NSDictionary *infoDic;
+@property  (nonatomic, strong) NSString *from;
+
 @end

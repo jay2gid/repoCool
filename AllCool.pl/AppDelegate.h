@@ -18,6 +18,9 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate,GIDSignInDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
++(AppDelegate *)delegate;
+
+@property (strong, nonatomic) UINavigationController *navigationController;
 
 @end
 

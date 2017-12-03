@@ -9,6 +9,7 @@
 #import "BotalVC.h"
 #import "ViewAddRatingTobotal.h"
 #import "ViewWithCornerAndBorder.h"
+#import "ViewFavList.h"
 
 @interface BotalVC ()
 {
@@ -46,6 +47,7 @@
     NSArray *arrayUserRatings;
     IBOutlet UITableView *tblRatings;
     
+    ViewFavList *viewCustomList;
     
 }
 
@@ -70,7 +72,19 @@
 -(void)getSingleBearDetail
 {
     SVHUD_START
-    NSDictionary *dict = @{@"uid":UserID,@"pid":[NSString stringWithFormat:@"%@",dictBeer[@"id"]]};
+    
+    NSString *bearId;
+    
+    if ([_from isEqualToString:@"favroit"]) {
+        bearId = [Helper getString:dictBeer[@"id"]];
+    }
+    else{
+        bearId = [Helper getString:dictBeer[@"pid"]];
+    }
+    
+    NSDictionary *dict = @{@"uid":UserID,@"pid":bearId};
+    
+    
     [WebServiceCalls POST:@"vendorss/singlebeer_brewary.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
      {
          SVHUD_STOP
@@ -85,8 +99,14 @@
                  {
                      viewBtnTst.hidden = YES;
                  }
+                 else
+                 {
+                     viewBtnTst.hidden = NO;
+                 }
+                 
                  dictResponce = JSON;
                  
+                 [self showCustomList];
                  if ([JSON[@"count"] integerValue] == 1)
                  {
                      lblFavCount.text = [NSString stringWithFormat:@"%@",JSON[@"count"]];
@@ -137,22 +157,6 @@
                      }
                      
                      
-//                     "Avg_rating" = 0;
-//                     "ODCzuciew_ustach" = 0;
-//                     "alcohole_per" = "5,0";
-//                     "alcohole_type" = "Roggenbier - \U017cytnie";
-//                     aromat = 0;
-//                     dat = "<null>";
-//                     desc = "Piwo kraftowe, kt\U00f3re da ci porz\U0105dn\U0105 i po\U017c\U0105dan\U0105 dawk\U0119 orze\U017awienia w cieple letnie dni. I doda apetytu na \U017cycie oczywi\U015bcie :)";
-//                     ekstrakt = "13,1";
-//                     ibu = 18;
-//                     id = 8;
-//                     image = "http://allcool.pl/assests/productimg/1495104379_728171fadbc8fc21d50f84c1efcae9e7b52c5b0b_201410061113-300x0-t.jpg";
-//                     "ogolne_wrazenie" = 0;
-//                     price = "5.54";
-//                     "product_name" = "Pinta Apetyt na \U017bycie";
-//                     smak = 0;
-//                     wyglad = 0;
                  
                 }
              }
@@ -203,15 +207,20 @@
 
 -(void)didSuccessRating
 {
-    
     [self getSingleBearDetail];
 }
+
+- (void)didSuccessVenderSuggest {
+    
+}
+
+
 
 - (IBAction)tapTestBotal:(UIButton *)sender {
     
     NSDictionary *dict = @{@"uid":UserID,@"bid":[NSString stringWithFormat:@"%@",dictBeer[@"id"]]};
     [WebServiceCalls POST:@"beer_tested.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
-    {
+     {
          SVHUD_STOP
          @try
          {
@@ -232,7 +241,7 @@
          {}
          @finally
          {}
-   }];
+     }];
     
 }
 
@@ -292,5 +301,119 @@
     
     return cell;
 }
+
+
+
+
+
+#pragma mark self created list
+
+
+-(void)makeCustomList
+{
+    viewCustomList = [[[NSBundle mainBundle] loadNibNamed:@"ViewFavList" owner:self options:nil]objectAtIndex:0];
+    viewCustomList.frame = self.view.frame;
+    [self.view addSubview:viewCustomList];
+    viewCustomList.hidden = YES;
+    
+    BEMCheckBox *box = [[BEMCheckBox alloc]initWithFrame:CGRectMake(20, 10 , 44, 44)];
+    [viewCustomList.scrollCheckButtons addSubview:box];
+    box.tag = 0;
+    
+    UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(70, 10, viewCustomList.scrollCheckButtons.frame.size.width - 70, 44)];
+    lbl.text  = @"Ulubione piwa";
+    [viewCustomList.scrollCheckButtons addSubview:lbl];
+    
+    if ([_from isEqualToString:@"favroit"])
+    {
+        box.on = true;
+        box.userInteractionEnabled = false;
+    }
+    box.delegate = self;
+    
+    
+    if ([dictResponce[@"custom_lists"] count] > 0)
+    {
+        [viewCustomList.scrollCheckButtons setContentSize:CGSizeMake(viewCustomList.scrollCheckButtons.frame.size.width, 40 + 60 * [dictResponce[@"custom_lists"] count]  )];
+        
+        for (int i = 0; i < [dictResponce[@"custom_lists"] count]; i++) {
+            
+            NSDictionary *dict = dictResponce[@"custom_lists"][i];
+            
+            
+            box = [[BEMCheckBox alloc]initWithFrame:CGRectMake(20, 70 + i * 60 , 44, 44)];
+            [viewCustomList.scrollCheckButtons addSubview:box];
+            box.tag = i+1;
+            box.delegate = self;
+            
+            if ([dict[@"fav_add"] integerValue] == 1) {
+                
+                box.userInteractionEnabled = false;
+                [box on];
+            }
+            
+            lbl = [[UILabel alloc]initWithFrame:CGRectMake(70, 70 + i * 60 , viewCustomList.scrollCheckButtons.frame.size.width - 70, 44)];
+            lbl.text  =  [Helper getString:dict[@"list_name"]];
+            [viewCustomList.scrollCheckButtons addSubview:lbl];
+            
+            
+        }
+        
+    }
+    
+}
+
+-(IBAction)showCustomList
+
+{
+    viewCustomList.hidden = NO;
+}
+-(void)didTapCheckBox:(BEMCheckBox *)checkBox
+{
+    checkBox.userInteractionEnabled = NO;
+    [self custom_list_record:checkBox.tag];
+}
+
+-(void)custom_list_record:(NSInteger)tag
+{
+    
+    NSString *listName = @"Ulubione piwa";
+    
+    if (tag>0)
+    {
+        listName = [NSString stringWithFormat:@"%@",dictResponce[@"custom_lists"][tag-1][@"list_name"]];
+    }
+    
+    NSDictionary *dict = @{@"uid":UserID,
+                           @"list_name":listName,
+                           @"beer_type":@"1",
+                           @"bid":[NSString stringWithFormat:@"%@",dictBeer[@"id"]]};
+    SVHUD_START
+    [WebServiceCalls POST:@"custom_list_record.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
+     {
+         SVHUD_STOP
+         @try
+         {
+             if ([JSON[@"success"] integerValue] == 1)
+             {
+                 [self.navigationController.view makeToast:JSON[@"message"]];
+                 viewBtnTst.hidden = YES;
+             }
+             else
+             {
+                 if ([JSON[@"message"] integerValue])
+                 {
+                     [self.navigationController.view makeToast:JSON[@"message"]];
+                 }
+             }
+         }
+         @catch (NSException *exception)
+         {}
+         @finally
+         {}
+     }];
+}
+
+
 
 @end

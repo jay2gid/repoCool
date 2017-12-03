@@ -37,6 +37,9 @@
     }
 
     [self get_Data];
+    
+    
+    
 }
 
 -(void)get_Data
@@ -144,6 +147,7 @@
 {
     BotalVC *OBJ = [self.storyboard instantiateViewControllerWithIdentifier:@"BotalVC"];
     OBJ.dictBeer = arrBeer[indexPath.row];
+    OBJ.from = @"favroit";
     [self.navigationController pushViewController:OBJ animated:YES];
 }
 
@@ -256,4 +260,11 @@
     
     [self presentViewController:alert animated:YES completion:nil];
 }
+
+
+///////////////////////
+
+
+
+
 @end

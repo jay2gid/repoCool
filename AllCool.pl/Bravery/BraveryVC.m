@@ -21,6 +21,8 @@
     NSUInteger tableFlag;
     
     NSArray *arrBeer;
+    
+    NSString * idBravery;
 }
 @end
 
@@ -37,14 +39,18 @@
 
     GET_HEADER_VIEW_WITH_BACK
     header.title.text = @"Allcool.pl";
-    header.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    header.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
     
-    NSString *url = [NSString stringWithFormat:@"vendorss/Brewary_Profile.php?id=%@&uid=%@", infoDic[@"id"], UserID];
+    
+    idBravery = [Helper getString:infoDic[@"id"]] ;
+    
+    NSString *url = [NSString stringWithFormat:@"vendorss/Brewary_Profile.php?id=%@&uid=%@",idBravery, UserID];
     SVHUD_START
     [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)
      {
@@ -134,15 +140,27 @@
         lbl = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, i/2 *cellHeight, 0.5, cellHeight)];
         lbl.backgroundColor = [UIColor lightGrayColor];
         [scrollBotals addSubview:lbl];
+        
+        UIButton *tapBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, cellHeight, cellHeight)];
+        tapBtn.tag = i;
+        [tapBtn addTarget:self action:@selector(tapOnbotal:) forControlEvents:UIControlEventTouchUpInside];
+        [myCell addSubview:tapBtn];
     }
 
     [scrollBotals setContentSize:CGSizeMake(WIDTH, HEIGHT)];
-    
+
+}
+
+-(void)tapOnbotal:(UIButton *)sender
+{
+    BotalVC *OBJ = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"BotalVC"];
+    OBJ.dictBeer = arrBeer[sender.tag];
+    [self.navigationController pushViewController:OBJ animated:YES];
 }
 
 - (IBAction)tapPlus:(id)sender
 {
-    UIAlertController * view=   [UIAlertController
+    UIAlertController * view = [UIAlertController
                                  alertControllerWithTitle:@""
                                  message:@""
                                  preferredStyle:UIAlertControllerStyleActionSheet];
@@ -161,12 +179,12 @@
                                      
                                      [view dismissViewControllerAnimated:YES completion:nil];
                                  }];
-        
+
         [online setValue:[[UIImage imageNamed:@"flag_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
         
         [view addAction:online];
     }
-
+    
     if ([dict_Brewary[@"products"][0][@"fav_vendor"] integerValue] != 1)
     {
         UIAlertAction* offline = [UIAlertAction
@@ -196,6 +214,7 @@
                                        view1.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
                                        view1.selfBack = self;
                                        view1.delegate = self;
+                                       view1.VID = idBravery;
                                        [self.view addSubview:view1];
                                        
                                        [view dismissViewControllerAnimated:YES completion:nil];

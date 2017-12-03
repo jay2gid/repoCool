@@ -14,6 +14,10 @@
 
 @implementation AppDelegate
 
++(AppDelegate *)delegate
+{
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -38,8 +42,21 @@
         FirstVC *obj = [storybord instantiateViewControllerWithIdentifier:@"FirstVC"];
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         
-        UINavigationController *navigationController=[[UINavigationController alloc] initWithRootViewController:obj];
-        self.window.rootViewController = navigationController;
+        _navigationController = [[UINavigationController alloc] initWithRootViewController:obj];
+        self.window.rootViewController = _navigationController;
+        [self.window makeKeyAndVisible];
+        
+        return YES;
+    }
+    else
+    {
+        
+        UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *obj = [storybord instantiateViewControllerWithIdentifier:@"SplashVC"];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        
+        _navigationController = [[UINavigationController alloc] initWithRootViewController:obj];
+        self.window.rootViewController = _navigationController;
         [self.window makeKeyAndVisible];
         
         return YES;

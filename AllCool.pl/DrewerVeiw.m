@@ -65,6 +65,9 @@
     NSArray *array = @[@"FirstVC",@"FavBravery",@"FavBearVC",@"BrowaryVC",@"FestivalListVC",@"FavListVC",@"RadarVC",@"",@"",@"SettingVC",@"LoginVC"];
     if (indexPath.row < 7)
     {
+        if (indexPath.row == 0)
+             [self.backSelf.navigationController popToRootViewControllerAnimated:true];
+        
         UIViewController *con = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:array[indexPath.row]];
         
         [self.backSelf.navigationController pushViewController:con animated:YES];

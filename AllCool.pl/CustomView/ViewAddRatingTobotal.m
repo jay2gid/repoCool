@@ -10,7 +10,7 @@
 
 @implementation ViewAddRatingTobotal
 
-@synthesize BID,delegate, FID, VID, isF_ID_Vid;
+@synthesize BID,delegate, FID, VID, isF_ID_Vid,PID;
 
 - (void)drawRect:(CGRect)rect
 {
@@ -43,7 +43,7 @@
     }
 }
 
--(void) add_Comment
+-(void)add_Comment
 {
     // http://allcool.pl/api_ios/festival/singlebeer_rating.php
 
@@ -51,14 +51,6 @@
     
     SVHUD_START
     NSDictionary *dict = @{@"uid":UserID,@"name":User_Name,@"bid":BID, @"rating":star, @"comment":txtComment.text, @"email":User_Email, @"type":[NSString stringWithFormat:@"%@",_dictBear[@"type"]]};
-    
-//    $uid = $_POST['uid'];
-//    $bid = $_POST['bid'];
-//    $name = $_POST['name'];
-//    $email = $_POST['email'];
-//    $rating = $_POST['rating'];
-//    $comment = $_POST['comment'];
-//    $type = $_POST['type'];
     
     [WebServiceCalls POST:@"vendorss/singlebeer_rating.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
      {
@@ -90,7 +82,10 @@
      }];
 }
 
--(void) add_Comment2
+
+
+
+-(void)add_Comment2
 {
     
     NSString *star = [NSString stringWithFormat:@"%ld", viewStarRating.rating];
@@ -106,12 +101,18 @@
         url = @"festival/festival_review.php";
         dict = @{@"uid":UserID, @"fid":ID, @"rating":star, @"comment":txtComment.text};
     }
-    else
+    else if (VID)
     {
-        // >> http://allcool.pl/api_ios/vendorss/rat_brewery.php
+        // api_ios/vendorss/rat_brewery.php
         
         ID = VID;
         url = @"vendorss/rat_brewery.php";
+        dict = @{@"userid":UserID, @"pid":ID, @"name":User_Name, @"email":User_Email, @"rating":star, @"comment":txtComment.text};
+    }
+    else
+    {
+        ID = PID;
+        url = @"vendorss/rat_vendor.php";
         dict = @{@"userid":UserID, @"pid":ID, @"name":User_Name, @"email":User_Email, @"rating":star, @"comment":txtComment.text};
     }
     
@@ -160,8 +161,13 @@
 
 
 
+
+
+
+
+
 #pragma mark Suggest Vender API
-/// Suggest Vender API
+/// ***************************** Suggest Vender API  **********************************
 
 - (IBAction)tapSuggestVender:(id)sender
 {

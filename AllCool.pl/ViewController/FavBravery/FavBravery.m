@@ -131,6 +131,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PubVC *obj = [[PubVC alloc]initWithNibName:@"PubVC" bundle:nil];
+    obj.infoDic = arrList[indexPath.row];
+    obj.from = @"flist";
     [self.navigationController pushViewController:obj animated:YES];
 }
 

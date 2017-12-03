@@ -68,24 +68,23 @@ static NSString *getuserphone;
              {}
              success:^(AFHTTPRequestOperation *operation, id responseObject)
              {
-                 NSMutableArray * responseJson = [[NSMutableArray alloc]init];
-                 responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+                 id responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
                 
                  if (responseJson)
                      block(responseJson,WebServiceResultSuccess);
                  else
-                     block(@{@"message":@"Error : Could not getting proper responce"},WebServiceResultFail);
+                     block(@{@"success":@"0",@"message":@"Error : Could not getting proper responce"},WebServiceResultFail);
 
              }
             failure:^(AFHTTPRequestOperation *operation, NSError* error)
              {
                  [SVProgressHUD dismiss];
-                  block(@{@"message":@"Error : Server Problem"},WebServiceResultFail);
+                 block(@{@"success":@"0",@"message":@"Network Error"},WebServiceResultFail);
              }];
         }
         @catch (NSException *exception)
         {
-            block(@{@"message":@"Error"},WebServiceResultFail);
+            block(@{@"success":@"0",@"message":@"Network Error"},WebServiceResultFail);
         }
     }
 }
@@ -106,22 +105,23 @@ static NSString *getuserphone;
               success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              
-             NSMutableArray * responseJson = [[NSMutableArray alloc]init];
-             responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
-             block(responseJson,WebServiceResultSuccess);
-             
+             id responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+             if (responseJson)
+                 block(responseJson,WebServiceResultSuccess);
+             else
+                 block(@{@"success":@"0",@"message":@"Error : Could not getting proper responce"},WebServiceResultFail);
          }
          
               failure:^(AFHTTPRequestOperation *operation, NSError* error)
          {
-             block(@"1",WebServiceResultSuccess);
-             
+             block(@{@"success":@"0",@"message":@"Network Error"},WebServiceResultFail);
+
          }];
         
     }
     @catch (NSException *exception)
     {
-        block(@"1",WebServiceResultSuccess);
+        block(@{@"success":@"0",@"message":@"Network Error"},WebServiceResultFail);
     }
     
 }
@@ -139,12 +139,14 @@ static NSString *getuserphone;
              [SVProgressHUD dismiss];
              NSMutableArray * responseJson = [[NSMutableArray alloc]init];
              responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
-             block(responseJson,WebServiceResultSuccess);
-             
+             if (responseJson)
+                 block(responseJson,WebServiceResultSuccess);
+             else
+                 block(@{@"success":@"0",@"message":@"Could not getting proper responce"},WebServiceResultFail);
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              [SVProgressHUD dismiss];
-             block(@"1",WebServiceResultSuccess);
-             
+             block(@{@"success":@"0",@"message":@"Network Error"},WebServiceResultFail);
+
          }];
         
         /*NSURL *urlStr=  [NSURL URLWithString:[[NSString stringWithFormat:@"%@%@",BASE_URL,url] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -158,9 +160,7 @@ static NSString *getuserphone;
     }
     @catch (NSException *exception)
     {
-        block(@"1",WebServiceResultSuccess);
-        UIAlertView *aler = [[UIAlertView alloc]initWithTitle:@"Network Error" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [aler show];
+        block(@{@"success":@"0",@"message":@"Network Error"},WebServiceResultFail);
     }
     
 }

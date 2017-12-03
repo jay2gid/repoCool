@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewAddRatingTobotal.h"
-@interface BotalVC : UIViewController<UITableViewDelegate,UITableViewDataSource,ratingSuccessDelegate>
+@interface BotalVC : UIViewController<UITableViewDelegate,UITableViewDataSource,ratingSuccessDelegate,BEMCheckBoxDelegate>
 
 @property (nonatomic, strong) NSDictionary *dictBeer;
+@property (nonatomic, strong) NSString *from;
 
 @end

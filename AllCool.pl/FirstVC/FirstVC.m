@@ -7,8 +7,6 @@
 //
 
 #import "FirstVC.h"
-@import GoogleMaps;
-@import GooglePlaces;
 
 @interface FirstVC ()
 
@@ -23,6 +21,9 @@
 - (void)viewDidLoad{
     
     [super viewDidLoad];
+   
+    self.navigationController.viewControllers = @[self];
+
     
     HIDE_NAV_BAR
     GET_HEADER_VIEW
@@ -31,24 +32,20 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:28.33
                                                             longitude:77.100
-                                                                 zoom:7];
+                                                                 zoom:5];
     mapView = [GMSMapView mapWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) camera:camera];
-    
+    mapView.delegate = self;
     mapView.myLocationEnabled = YES;
     [self.view addSubview:mapView];
     // mapView.delegate = self;
     
     [self get_Vendor_and_Festivals];
-    //[self performSelector:@selector(set_Camera) withObject:nil afterDelay:2];
+    
+    GESTURE_POP
+    
 }
 
-/*-(void) set_Camera
-{
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:mapView.myLocation.coordinate.latitude
-                                                            longitude:mapView.myLocation.coordinate.longitude
-                                                                 zoom:7];
-    mapView = [GMSMapView mapWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT-64) camera:camera];
-}*/
+
 
 -(void) get_Vendor_and_Festivals
 {
@@ -92,8 +89,10 @@
         float lon = [arrVendor_Festivals[i][@"latitude"] floatValue];
         
         marker.position = CLLocationCoordinate2DMake(lat, lon);
-        marker.title = arrVendor_Festivals[i][@"name"];
-        marker.snippet = arrVendor_Festivals[i][@"bar_type"];
+        marker.title = [Helper getString:arrVendor_Festivals[i][@"name"]];
+        marker.snippet = [Helper getString:arrVendor_Festivals[i][@"bar_type"]];
+        marker.zIndex = i;
+        
         
         if ([arrVendor_Festivals[i][@"usertype"] integerValue] == 1)
         {
@@ -105,11 +104,22 @@
         }
         
         marker.map = mapView;
+        mapView.delegate = self;
     }
+}
+-(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker
+{
+    PubVC *obj = [[PubVC alloc]initWithNibName:@"PubVC" bundle:nil];
+    obj.infoDic = arrVendor_Festivals[marker.zIndex];
+    
+    [self.navigationController pushViewController:obj animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+
+GESTURE_POP_DELEGATE
 @end

@@ -14,7 +14,7 @@
 @end;
 
 
-@interface ViewAddRatingTobotal : UIView<UITextFieldDelegate>
+@interface ViewAddRatingTobotal : UIView <UITextFieldDelegate>
 {
     IBOutlet StarRatingControl *viewStarRating;
     IBOutlet ACFloatingTextfield *txtName;
@@ -36,6 +36,8 @@
 
 @property (nonatomic, strong) NSString *FID;
 @property (nonatomic, strong) NSString *VID;
+@property (nonatomic, strong) NSString *PID;
+
 
 @property (nonatomic, readwrite) NSInteger isF_ID_Vid;
 

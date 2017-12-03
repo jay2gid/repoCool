@@ -1,7 +1,5 @@
 //
 //  PrefixHeader.pch
-//
-//  Created by Ashish Kumar Sharma on 04/07/16.
 //  Copyright © 2016 Ashish Kumar Sharma. All rights reserved.
 //
 
@@ -43,4 +41,10 @@
 #import "FestivalListVC.h"
 #import "RatingCell.h"
 #import "DescripionVC.h"
+
+#import "Helper.h"
+#import "PubVC.h"
+#import "BEMCheckBox.h"
+#import "BotalVC.h"
+
 #endif
