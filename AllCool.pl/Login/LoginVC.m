@@ -27,7 +27,6 @@
 
     HIDE_NAV_BAR
     
-    
     btnForgot.layer.shadowColor = BLACK_COLOR.CGColor;
     btnForgot.layer.shadowOffset = CGSizeMake(1, 1);
     btnForgot.layer.shadowOpacity = 10;
@@ -39,7 +38,6 @@
     loginButton.hidden = true;
     loginButton.delegate = self;
     
-    
     [GIDSignIn sharedInstance].uiDelegate = self;
     [GIDSignIn sharedInstance].clientID = kClientID;
     
@@ -50,6 +48,8 @@
     _signInButton.hidden = true;
     
     GESTURE_POP_REMOVE
+    
+    self.navigationController.viewControllers = @[self];
     
 }
 - (IBAction)tapFacebookLogin:(id)sender
@@ -134,6 +134,8 @@
              };
              }
              */
+                
+            
             
             NSString *setUserID = [NSString stringWithFormat:@"%@", JSON[@"user_detail"][@"userid"]];
             [[NSUserDefaults standardUserDefaults] setObject:setUserID forKey:@"userid"];
@@ -146,6 +148,10 @@
             
             NSString *setUserType = [NSString stringWithFormat:@"%@", JSON[@"user_detail"][@"usrtype"]];
             [[NSUserDefaults standardUserDefaults] setObject:setUserType forKey:@"usertype"];
+             
+            NSString *image = [NSString stringWithFormat:@"%@", JSON[@"user_detail"][@"image"]];
+            [[NSUserDefaults standardUserDefaults] setObject:image forKey:@"user_image"];
+            
             
             UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             FirstVC *obj = [storybord instantiateViewControllerWithIdentifier:@"FirstVC"];

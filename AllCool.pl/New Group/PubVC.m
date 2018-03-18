@@ -9,10 +9,13 @@
 #import "PubVC.h"
 #import "FirstPubCell.h"
 #import "MyCellView.h"
+#import "PosterCellPub.h"
+#import "PostTimelineVC.h"
 
 @interface PubVC ()
 {
     
+    IBOutlet UILabel *lblFavCount;
     IBOutlet UILabel *menuSelectionLine;
     
     IBOutlet UIImageView *imgBG;
@@ -33,7 +36,7 @@
 
     NSDictionary *dicPub;
     
-    NSArray *arrayComments;
+    NSArray *arrayComments,*arrayPromotions,*arrayEvents;
     
     NSUInteger tableFlag;
     
@@ -41,8 +44,6 @@
     
     NSString *idPub;
     int pubVisited,isFav;
-    
-    
 }
 
 @end
@@ -54,29 +55,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
-    
     GET_HEADER_VIEW_WITH_BACK
     header.title.text = @"Allcool.pl";
     header.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+    
     idPub = [Helper getString:infoDic[@"id"]];
+    if ([_from isEqualToString:@"other"]) {
+        idPub = [Helper getString:infoDic[@"vid"]];
+    }
     
     if ([_from isEqualToString:@"flist"]){
 
         lblAvgRating.text = [Helper getString:infoDic[@"Avg_rating"]];
         lblPub_name.text = [Helper getString:infoDic[@"name"]];
-        lblPub_type.text = [Helper getString:infoDic[@"street_name"]];
+        lblPub_type.text = [Helper getString:infoDic[@"bar_type"]];
         avg_rating.rating = [[Helper getString:infoDic[@"Avg_rating"]] integerValue];
     
-        [imgLogo sd_setImageWithURL:[NSURL URLWithString:[Helper getString:infoDic[@"img"]]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
-        [imgBG sd_setImageWithURL:[NSURL URLWithString:[Helper getString:infoDic[@"img"]]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
+        [Helper setImageOnPGlass:imgLogo url:infoDic[@"img"]];
+        [Helper setImageOnPGlass:imgBG url:infoDic[@"img"]];
+
     }
     tableFlag = 1;
     [self loadPubDetail];
     [self gatBearBotals];
+    [self getEventsAndPromotions];
+    
+    lblAvgRating.layer.cornerRadius = 2;
+    lblAvgRating.layer.borderColor = WHITE_COLOR.CGColor;
+    lblAvgRating.layer.borderWidth = 0.5;
+    scrollHorBotals.delegate = self;
 }
-
-
 
 
 -(void)loadPubDetail
@@ -86,6 +94,7 @@
     SVHUD_START
     [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)
     {
+        
          SVHUD_STOP
          NSLog(@"%@", JSON);
 
@@ -96,15 +105,8 @@
             if( [JSON[@"products"] count] > 0)
             {
                 NSDictionary *dic = JSON[@"products"][0];
-                lblAvgRating.text = [Helper getString:dic[@"Avg_rating"]];
-                lblPub_name.text = [Helper getString:dic[@"name"]];
-                lblPub_type.text = [Helper getString:dic[@"street_name"]];
-                avg_rating.rating = [[Helper getString:dic[@"Avg_rating"]] integerValue];
-                
-                [imgLogo sd_setImageWithURL:[NSURL URLWithString:[Helper getString:dic[@"img"]]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
-                [imgBG sd_setImageWithURL:[NSURL URLWithString:[Helper getString:infoDic[@"img"]]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
-                
-                
+                lblFavCount.text = [Helper getStringORZero:JSON[@"count"]];
+             
                 pubVisited =  [dic[@"pub_visited"] intValue];
                 isFav = [dic[@"fav_vendor"] intValue];
                 
@@ -118,8 +120,7 @@
             }
         }
         
-        if(JSON[@"comment"])
-        {
+        if(JSON[@"comment"]){
             arrayComments = JSON[@"comment"];
         }
         
@@ -128,10 +129,7 @@
         [table reloadData];
     }];
     
-    // http://allcool.pl/api_ios/vendorss/myProfile.php
-    
 }
-
 
 // ----  Bear Bottal Detail Apis
 // ----  Bear Bottal Detail Apis
@@ -155,10 +153,15 @@
          {
              UIScrollView *scroll_1 = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, scrollHorBotals.frame.size.height)];
              [scrollHorBotals addSubview:scroll_1];
+             scroll_1.backgroundColor = WHITE_COLOR;
              
              NSArray *arrBeer;
              if(JSON[@"products"])
                 arrBeer = JSON[@"products"] ;
+           
+             if (arrBeer.count>0) {
+                 scroll_1.backgroundColor = WHITE_COLOR;
+             }
              
              for (int i = 0; i < arrBeer.count ; i++)
              {
@@ -169,20 +172,21 @@
                 NSString *url = [NSString stringWithFormat:@"%@", arrBeer[i][@"image"]];
                 [myCell.imgBoatal sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
                 
-             
+                 myCell.infoDict = arrBeer[i];
+
                          myCell.lglName.text = [NSString stringWithFormat:@"%@", arrBeer[i][@"product_name"]];
                  
                          myCell.rating.rating = [arrBeer[i][@"Avg_rating"] integerValue];
                  
                          [scroll_1 addSubview:myCell];
                  
-                 //        UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0, (i/2 + 1)*cellHeight, WIDTH, 0.5)];
-                 //        lbl.backgroundColor = [UIColor lightGrayColor];
-                 //        [scroll_1 addSubview:lbl];
-                 //
-                 //        lbl = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, i/2 *cellHeight, 0.5, cellHeight)];
-                 //        lbl.backgroundColor = [UIColor lightGrayColor];
-                 //        [scroll_1 addSubview:lbl];
+                         UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0, (i/2 + 1)*cellHeight, WIDTH, 0.5)];
+                         lbl.backgroundColor = [UIColor lightGrayColor];
+                         [scroll_1 addSubview:lbl];
+                 
+                         lbl = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, i/2 *cellHeight, 0.5, cellHeight)];
+                         lbl.backgroundColor = [UIColor lightGrayColor];
+                         [scroll_1 addSubview:lbl];
              }
              
              
@@ -203,15 +207,19 @@
               if ([Helper getIntegerDefaultZero:JSON[@"success"]] == 1)
               {
               
-              UIScrollView *scroll_2 = [[UIScrollView alloc]initWithFrame:CGRectMake(WIDTH, 0, WIDTH, scrollHorBotals.frame.size.height)];
-              [scrollHorBotals addSubview:scroll_2];
-              
-              
-              cellHeight = HEIGHT/3;
+                  UIScrollView *scroll_2 = [[UIScrollView alloc]initWithFrame:CGRectMake(WIDTH, 0, WIDTH, scrollHorBotals.frame.size.height)];
+                  [scrollHorBotals addSubview:scroll_2];
+                  
+                  
+                  cellHeight = HEIGHT/3;
                   NSArray *arrBeer;
                   if(JSON[@"products"])
-                      arrBeer = JSON[@"products"] ;
+                      arrBeer = JSON[@"products"];
                   
+                  if (arrBeer.count>0) {
+                      scroll_2.backgroundColor = WHITE_COLOR;
+
+                  }
                   
                   
               for (int i = 0; i < arrBeer.count ; i++)
@@ -228,7 +236,15 @@
                           myCell.rating.rating = [arrBeer[i][@"Avg_rating"] integerValue];
                   
                           [scroll_2 addSubview:myCell];
-                  //
+                  
+                  UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(0, (i/2 + 1)*cellHeight, WIDTH, 0.5)];
+                  lbl.backgroundColor = [UIColor lightGrayColor];
+                  [scroll_2 addSubview:lbl];
+                  
+                  lbl = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, i/2 *cellHeight, 0.5, cellHeight)];
+                  lbl.backgroundColor = [UIColor lightGrayColor];
+                  [scroll_2 addSubview:lbl];
+                  myCell.infoDict = arrBeer[i];
               }
               
               [scroll_2 setContentSize:CGSizeMake(WIDTH, cellHeight * 3)];
@@ -238,14 +254,49 @@
          
      }];
  
-    
-    
-    
-  
 }
 
 
+// ----  getEventsAndPromotions
+// ----  getEventsAndPromotions
 
+#pragma mark EventsAndPromotions API
+
+-(void)getEventsAndPromotions
+{
+    
+    [scrollHorBotals setContentSize:CGSizeMake(WIDTH*2, scrollHorBotals.frame.size.height)];
+    
+    NSString *url = [NSString stringWithFormat:@"vendorss/event.php?id=%@",idPub];
+    
+    [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)  {
+        
+         if ([Helper getIntegerDefaultZero:JSON[@"success"]] == 1)
+         {
+             arrayEvents = JSON[@"products"];
+         }
+         else
+         {
+             //    [Helper makeToast:[Helper getString:JSON[@"message"]]];
+         }
+         
+     }];
+    
+    url = [NSString stringWithFormat:@"vendorss/promotions.php?id=%@",idPub];
+
+    [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)  {
+        
+        if ([Helper getIntegerDefaultZero:JSON[@"success"]] == 1)
+        {
+            arrayPromotions = JSON[@"products"];
+        }
+        else
+        {
+            //    [Helper makeToast:[Helper getString:JSON[@"message"]]];
+        }
+    }];
+    
+}
 
 
 
@@ -259,24 +310,30 @@
 
     if (sender.tag == 1) {
         
+        tableFlag = 1;
         table.hidden = NO;
-        scrollHorBotals.hidden = YES;
-    
+        viewBotals.hidden = YES;
+        [table reloadData];
     }
     else   if (sender.tag == 2){
-        
+
         table.hidden = YES; 
-        scrollHorBotals.hidden = NO;
+        viewBotals.hidden = NO;
     }
     else if (sender.tag == 3){
         
+        tableFlag = 3;
         table.hidden = NO;
-        scrollHorBotals.hidden = YES;
+        viewBotals.hidden = YES;
+        [table reloadData];
     }
     else if (sender.tag == 4){
-        
+
+        tableFlag = 4;
         table.hidden = NO;
-        scrollHorBotals.hidden = YES;
+        viewBotals.hidden = YES;
+        [table reloadData];
+
     }
     
     [UIView animateWithDuration:0.2 animations:^{
@@ -293,15 +350,32 @@
 
 -(CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
-    {
-        if ([self isWallpaper])
-            return 425;
+    if (tableFlag == 1){
+        
+        float height;
+        if (indexPath.section == 0){
+            if ([self isWallpaper])
+                height = 425;
+            else
+                height =  260;
+            
+           NSString *strDes = [Helper getString:dicPub[@"products"][0][@"pub_desc"]];
+            if ([strDes isEqualToString:@""]) {
+                height -= 60;
+            }
+            return height;
+        }
         else
-            return 260;
+            return 80;
+    } else  if (tableFlag == 3){
+        return 395;
+        
+    } else  if (tableFlag == 4){
+        return 260;
     }
-    else
-        return 80;
+    else {
+        return 100;
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -309,9 +383,7 @@
     if (tableFlag == 1) {
         return 2;
     }
-    
     return 1;
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -326,14 +398,19 @@
             return arrayComments.count;
         
     }
-    
-    return 0;
+    else if (tableFlag == 3)
+        return arrayEvents.count;
+    else if (tableFlag == 4)
+        return arrayPromotions.count;
+    else
+        return 1;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (tableFlag == 1) {
+
     if (indexPath.section == 0) {
             
         FirstPubCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"PubCell" owner:self options:nil]objectAtIndex:0];
@@ -343,26 +420,79 @@
             myCell.viewPubImages.hidden = YES;
             myCell.viewDesc.center = CGPointMake(myCell.viewDesc.center.x, myCell.viewPubImages.frame.origin.y + myCell.viewDesc.frame.size.height/2) ;
         }
+
         
+        myCell.lblPubName.text = lblPub_name.text;
+        myCell.lblPhoneNo.text = [Helper getString:dicPub[@"products"][0][@"phone"]];
+        myCell.lblLocAddress.text = [NSString stringWithFormat:@"%@ %@ %@ ",infoDic[@"street_name"],infoDic[@"street_number"],infoDic[@"city"]];
+        myCell.selfBack = self;
+        myCell.infoPub = dicPub;
+
+        NSString *strDes = [Helper getString:dicPub[@"products"][0][@"pub_desc"]];
+        myCell.lblDesc.text = strDes;
+        
+        if(dicPub[@"opening"]){
+            
+            if([dicPub[@"opening"] count] > 0) {
+             
+                NSString *str = @"";
+                
+                for (int i =0; i < [dicPub[@"opening"] count]; i++) {
+                    
+                    str = [NSString stringWithFormat:@"%@ %@",str,[Helper getString:dicPub[@"opening"][i][@"day"]]];
+                }
+                
+                myCell.lblTiming.text = str;
+            }
+        }
         
         return myCell;
     }
     else
     {
-            RatingCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:3];
+          RatingCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:3];
             
-//          NSDictionary *dict; ///= dict_Brewary[@"comment"][indexPath.row-1];
-//
-//          cell.lblUserName.text = [NSString stringWithFormat:@"%@",dict[@"name"]];
-//            
-//          cell.lblDateTime.text = [NSString stringWithFormat:@"%@",dict[@"dat"]];
-//
-//          cell.lblReview.text = [NSString stringWithFormat:@"%@",dict[@"comment"]];
-//            
-//          cell.viewRating.rating = [dict[@"rating"] integerValue];
-            
-            return cell;
-     }
+          NSDictionary *dict = arrayComments[indexPath.row];
+
+          cell.lblUserName.text = [NSString stringWithFormat:@"%@",dict[@"name"]];
+        
+          cell.lblDateTime.text = [NSString stringWithFormat:@"%@",dict[@"dat"]];
+
+          cell.lblReview.text = [NSString stringWithFormat:@"%@",dict[@"comment"]];
+        
+          cell.viewRating.rating = [dict[@"rating"] integerValue];
+        
+        return cell;
+    }
+    }
+    
+    else if (tableFlag == 3) {
+        PosterCellPub *posterCell = [[[NSBundle mainBundle]loadNibNamed:@"PubCell" owner:self options:nil]objectAtIndex:1];
+        NSDictionary *dict = arrayEvents[indexPath.row];
+        
+        posterCell.lblDay.text = [Helper getString:dict[@"event_date"]];
+        posterCell.lblMonth.text = [Helper getString:dict[@"event_month"]];
+        posterCell.lblTime.text = [Helper getString:dict[@"event_time"]];
+        posterCell.lblDetail.text = [Helper getString:dict[@"price"]];
+        posterCell.lblTitle.text = [Helper getString:dict[@"name"]];
+        posterCell.lblInfo.text = [Helper getString:dict[@"desc"]];
+
+        
+        NSString *url = [NSString stringWithFormat:@"%@", dict[@"img"]];
+        [posterCell.imgEvent sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
+        
+        return posterCell;
+    }
+    else
+    {
+        UITableViewCell *cell = [[[NSBundle mainBundle]loadNibNamed:@"PubCell" owner:self options:nil]objectAtIndex:2];
+        UIImageView *image = [cell viewWithTag:1];
+        
+        NSString *url = [NSString stringWithFormat:@"%@", arrayPromotions[indexPath.row][@"img"]];
+        [image sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
+        
+        return cell;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -376,22 +506,15 @@
 
 
 - (IBAction)tapOnBotolSegments:(UIButton *)sender {
+
+    [scrollHorBotals setContentOffset:CGPointMake(WIDTH*(sender.tag - 1), 0) animated:true];
     
-    if (sender.tag == 1)
-    {
-        
-    }
-    else
-    {
-        
-    }
 }
 
 
 
 
 - (IBAction)tapONPlus:(id)sender {
-    
     
     
     UIAlertController * view = [UIAlertController
@@ -446,12 +569,12 @@
                                    style:UIAlertActionStyleDefault
                                    handler:^(UIAlertAction * action)
                                    {
-                                      
-                                       
+                                       PostTimelineVC *obj = [[PostTimelineVC alloc]initWithNibName:@"PostTimelineVC" bundle:nil];
+                                       obj.infoPub = infoDic;
+                                       [self.navigationController pushViewController:obj animated:YES];
                                    }];
     [postAction setValue:[[UIImage imageNamed:@"send_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
     [view addAction:postAction];
-    
     
     
     
@@ -467,7 +590,7 @@
                                        view1.selfBack = self;
                                        //view1.delegate = self;
                                        [self.view addSubview:view1];
-                                       view1.PID = idPub;
+                                       // view1.PID = idPub;
                                        
                                        [view dismissViewControllerAnimated:YES completion:nil];
                                        
@@ -484,9 +607,9 @@
                                ViewAddRatingTobotal *view1 = [[[NSBundle mainBundle] loadNibNamed:@"View" owner:self options:nil]objectAtIndex:1];
                                view1.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
                                view1.isF_ID_Vid = 1;
-                               view1.VID = infoDic[@"id"];
+                               view1.PID = idPub;
                                view1.selfBack = self;
-                               //view1.delegate = self;
+                               view1.delegate = self;
                                [self.view addSubview:view1];
                                
                                [view dismissViewControllerAnimated:YES completion:nil];
@@ -528,6 +651,12 @@
     
 }
 
+-(void)didSuccessRating
+{
+    [self loadPubDetail];
+}
+
+
 
 -(void)Api_URL:(NSString *)url Data:(NSDictionary *)dict
 {
@@ -547,6 +676,16 @@
              [self.navigationController.view makeToast:JSON[@"message"]];
          }
      }];
+}
+
+///// --- Scroll View Delegate
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    scrollableLine.frame = CGRectMake(scrollView.contentOffset.x/2, scrollableLine.frame.origin.y, scrollableLine.frame.size.width , scrollableLine.frame.size.height);
+    
+//    scrollableLine.center = CGPointMake(WIDTH/2*(sender.tag - 1) + WIDTH/4, scrollableLine.center.y);
+
 }
 
 

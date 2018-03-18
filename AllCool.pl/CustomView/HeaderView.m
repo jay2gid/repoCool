@@ -14,7 +14,11 @@
 
 }
 - (IBAction)tapBack:(id)sender {
-    [self.selfBack.navigationController popViewControllerAnimated:YES];
+    
+    if ([_title.text isEqualToString:@"Post on pub"])
+        [self.selfBack dismissViewControllerAnimated:true completion:nil];
+    else
+        [self.selfBack.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)tapMenu:(id)sender

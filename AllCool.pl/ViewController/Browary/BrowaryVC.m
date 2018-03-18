@@ -67,7 +67,7 @@
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(wd*(i%3), wd * (int)(i/3), WIDTH/3, WIDTH/3)];
         
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(wd/6,10,wd-wd/3,wd- wd/3)];
-        image.backgroundColor = GRAY_COLOR;
+        image.backgroundColor = WHITE_COLOR;
         [view addSubview:image];
         [image sd_setImageWithURL:[NSURL URLWithString:arrProducers[i][@"image"]] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
         

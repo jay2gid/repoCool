@@ -19,6 +19,8 @@
 #define User_Name [[NSUserDefaults standardUserDefaults]objectForKey:@"username"]
 #define User_Email [[NSUserDefaults standardUserDefaults]objectForKey:@"useremail"]
 #define User_Type [[NSUserDefaults standardUserDefaults]objectForKey:@"usertype"]
+#define USER_IMAGE_URL [[NSUserDefaults standardUserDefaults]objectForKey:@"user_image"]
+
 
 
 ////// --- COLORS
@@ -85,3 +87,20 @@
 #define Config_h
 
 #endif
+
+
+//
+//api/profileAttribute.php
+//
+//http://allcool.pl/api/radar.php
+//
+//Radar ----- (1).http://allcool.pl/api/radar.php
+//
+//-------(2). http://allcool.pl/api/searchradarresult.php
+//
+//For next and previous
+//
+//http://allcool.pl/api/searchradarnavnext.php
+//
+//http://allcool.pl/api/searchradarnavpre.php
+

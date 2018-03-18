@@ -15,10 +15,11 @@
     IBOutlet UIButton *btnRight;
     IBOutlet UIButton *btnLeft;
     IBOutlet UIView *viewUpButtons;
-    
     int tag;
-    
     NSArray *arrFest, *arrNewFest, *arrOldFest;
+    
+    UIView *viewDatePrograms;
+    UITableView  *tblPrg;
 }
 @end
 
@@ -58,6 +59,7 @@
     [tableList reloadData];
     
 }
+
 
 -(void) get_New_Festival
 {
@@ -157,10 +159,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tag == 1)
-    {
+    if (tag == 1) {
         arrFest = arrNewFest;
-        
         return arrFest.count;
     }
     
@@ -173,7 +173,9 @@
 {
     
     FestListTVCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:2];
-    [cell.imgFestLogo sd_setImageWithURL:[NSURL URLWithString:arrFest[indexPath.row][@"f_logo"]] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
+    
+    [Helper setImageOnPGlass:cell.imgFestLogo url:arrFest[indexPath.row][@"f_logo"]];
+    
     cell.lblFestName.text = arrFest[indexPath.row][@"f_name"];
     cell.lblPlaceName.text = [NSString stringWithFormat:@"%@ %@, %@", arrFest[indexPath.row][@"street_name"], arrFest[indexPath.row][@"street_num"], arrFest[indexPath.row][@"city"]];
     cell.lblDates.text = [NSString stringWithFormat:@"%@-%@", arrFest[indexPath.row][@"start_Date"], arrFest[indexPath.row][@"end_Date"]];
@@ -186,6 +188,7 @@
     UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FestivalViewVC *obj = [storybord instantiateViewControllerWithIdentifier:@"FestivalViewVC"];
     obj.F_ID = arrFest[indexPath.row][@"id"];
+    obj.infoDic = arrFest[indexPath.row];
     [self.navigationController pushViewController:obj animated:YES];
 }
 

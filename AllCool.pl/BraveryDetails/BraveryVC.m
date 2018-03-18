@@ -19,10 +19,12 @@
     IBOutlet UITableView *table;
     
     NSUInteger tableFlag;
-    
-    NSArray *arrBeer;
-    
+    NSArray *arrBeer,*arrWallPost;
     NSString * idBravery;
+    
+    
+    IBOutlet UILabel *lblLikeCount;
+    IBOutlet UIImageView *imgBg;
 }
 @end
 
@@ -41,6 +43,10 @@
     header.title.text = @"Allcool.pl";
     header.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
     
+    if (!arrWallPost)
+    {
+        [self getWallPost];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -49,7 +55,9 @@
     
     
     idBravery = [Helper getString:infoDic[@"id"]] ;
-    
+    if ([_from isEqualToString:@"other"]) {
+        idBravery = [Helper getString:infoDic[@"vid"]] ;
+    }
     NSString *url = [NSString stringWithFormat:@"vendorss/Brewary_Profile.php?id=%@&uid=%@",idBravery, UserID];
     SVHUD_START
     [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)
@@ -58,25 +66,24 @@
          NSLog(@"%@", JSON);
          @try
          {
-             if ([JSON[@"success"] integerValue] == 1)
-             {
-                 if (!arrBeer)
-                 {
+             if ([JSON[@"success"] integerValue] == 1) {
+                 if (!arrBeer) {
                      [self getAllBeer];
                  }
-                 
+
                  dict_Brewary = JSON;
                  
-                 [imgLogo sd_setImageWithURL:[NSURL URLWithString:dict_Brewary[@"products"][0][@"image"]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
+                 [Helper setImageOnPGlass:imgLogo url:dict_Brewary[@"products"][0][@"image"]];
+                 // [Helper setImageOnPGlass:imgBg url:dict_Brewary[@"products"][0][@"image"]];
+                 lblLikeCount.text = [Helper getStringORZero:JSON[@"count"]];
+                 
                  avg_rating.rating = [dict_Brewary[@"products"][0][@"Avg_rating"] integerValue];
                  lblProducer_name.text = dict_Brewary[@"products"][0][@"producer_name"];
                  lblBar_type.text = dict_Brewary[@"products"][0][@"bar_type"];
                  
                  [table reloadData];
-             }
-             else
-             {
-                 [WebServiceCalls alert:JSON[@"message"]];
+             } else {
+              //   [Helper makeToast:JSON[@"message"]];
              }
          }
          @catch (NSException *exception)
@@ -85,14 +92,17 @@
          {  }
      }];
 
+   
+
 }
 
 -(void)getAllBeer
 {
+    
     NSString *url = [NSString stringWithFormat:@"vendorss/Bravery_beer.php?id=%@", infoDic[@"id"]];
     SVHUD_START
-    [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result)
-     {
+    [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result) {
+        
          SVHUD_STOP
          NSLog(@"%@", JSON);
          @try
@@ -100,12 +110,11 @@
              if ([JSON[@"success"] integerValue] == 1)
              {
                  arrBeer = JSON[@"products"];
-                 
                  [self loadCollectionScrollView];
              }
              else
              {
-                 [WebServiceCalls alert:JSON[@"message"]];
+                 [Helper makeToast:JSON[@"message"]];
              }
          }
          @catch (NSException *exception)
@@ -114,6 +123,33 @@
          {  }
      }];
 }
+
+-(void)getWallPost{
+    
+    NSString *url = [NSString stringWithFormat:@"vendorss/Brewaryget_wallpost.php?pid=%@", infoDic[@"id"]];
+    SVHUD_START
+    [WebServiceCalls GET:url parameter:nil completionBlock:^(id JSON, WebServiceResult result) {
+        
+        SVHUD_STOP
+        @try
+        {
+            if ([JSON[@"success"] integerValue] == 1){
+                arrWallPost = JSON[@"post"];
+                [self loadCollectionScrollView];
+            }
+            else {
+               
+                // [WebServiceCalls alert:JSON[@"message"]];
+                // [Helper makeToast:JSON[@"message"]];
+            }
+        }
+        @catch (NSException *exception)
+        {  }
+        @finally
+        {  }
+    }];
+}
+
 
 -(void)loadCollectionScrollView
 {
@@ -130,6 +166,7 @@
         myCell.lglName.text = [NSString stringWithFormat:@"%@", arrBeer[i][@"product_name"]];
         
         myCell.rating.rating = [arrBeer[i][@"Avg_rating"] integerValue];
+        myCell.infoDict = arrBeer[i];
         
         [scrollBotals addSubview:myCell];
 
@@ -140,22 +177,16 @@
         lbl = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, i/2 *cellHeight, 0.5, cellHeight)];
         lbl.backgroundColor = [UIColor lightGrayColor];
         [scrollBotals addSubview:lbl];
-        
-        UIButton *tapBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, cellHeight, cellHeight)];
-        tapBtn.tag = i;
-        [tapBtn addTarget:self action:@selector(tapOnbotal:) forControlEvents:UIControlEventTouchUpInside];
-        [myCell addSubview:tapBtn];
     }
 
     [scrollBotals setContentSize:CGSizeMake(WIDTH, HEIGHT)];
-
 }
 
 -(void)tapOnbotal:(UIButton *)sender
 {
-    BotalVC *OBJ = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"BotalVC"];
-    OBJ.dictBeer = arrBeer[sender.tag];
-    [self.navigationController pushViewController:OBJ animated:YES];
+//    BotalVC *OBJ = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"BotalVC"];
+//    OBJ.dictBeer = arrBeer[sender.tag];
+//    [self.navigationController pushViewController:OBJ animated:YES];
 }
 
 - (IBAction)tapPlus:(id)sender
@@ -243,7 +274,7 @@
                              handler:^(UIAlertAction * action)
                              {  }];
     
-    [doNotDistrbe setValue:[[UIImage imageNamed:@"star_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+    [doNotDistrbe setValue:[[UIImage imageNamed:@"box_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
     [away setValue:[[UIImage imageNamed:@"star_op"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
     
     [view addAction:doNotDistrbe];
@@ -284,10 +315,13 @@
      }];
 }
 
-- (IBAction)tapSegmanets:(UIButton *)sender
-{
-    lineX.constant = WIDTH/3 * sender.tag;
+- (IBAction)tapSegmanets:(UIButton *)sender {
     
+    [UIView animateWithDuration:0.3 animations:^{
+        lineX.constant = WIDTH/3 * sender.tag;
+    }];
+    
+
     if (sender.tag == 0)
     {
         tableFlag = 1;
@@ -295,24 +329,21 @@
         table.hidden = false;
         [table reloadData];
     }
-    else if (sender.tag == 1)
-    {
+    else if (sender.tag == 1){
+        
         scrollBotals.hidden = false;
         table.hidden = true;
         
-        if (!arrBeer)
-        {
+        if (!arrBeer){
             [self getAllBeer];
         }
-        else
-        {
+        else {
             [self loadCollectionScrollView];
         }
     }
-    else
-    {
+    else {
+        
         tableFlag = 2;
-        scrollBotals.hidden = true;
         scrollBotals.hidden = true;
         [table reloadData];
     }
@@ -322,74 +353,75 @@
 
 -(CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableFlag == 1)
-    {
+    if (tableFlag == 1) {
         if (indexPath.row == 0) {
-            return  234;
+            if ([[Helper getString:dict_Brewary[@"products"][0][@"description"]] length] < 2) {
+                return 175;
+            }else{
+                return  234;
+            }
         }
-        else
-        {
+        else{
             return 85;
         }
     }
-   else
-   {
-       return 360;
+   else{
+       return 300;
    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableFlag == 1)
-    {
+    if (tableFlag == 1){
         NSInteger count = [dict_Brewary[@"comment"] count];
-        
         return count+1;
     }
-    else
-    {
-        return 3;
+    else{
+        return arrWallPost.count;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableFlag == 1)
-    {
-        if (indexPath.row == 0)
-        {
+    if (tableFlag == 1){
+        
+        if (indexPath.row == 0) {
+            
             BtnCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:0];
             
-            myCell.lblProducer_name.text = dict_Brewary[@"products"][0][@"producer_name"];
-            myCell.lblPhone.text = dict_Brewary[@"products"][0][@"phone"];
-            myCell.lblWebsite.text = dict_Brewary[@"products"][0][@"website"];
-            myCell.lblRegion.text = dict_Brewary[@"products"][0][@"region"];
-            myCell.lblBar_type.text = dict_Brewary[@"products"][0][@"bar_type"];
-            myCell.lblDescription.text = dict_Brewary[@"products"][0][@"description"];
+            myCell.lblProducer_name.text = [Helper getString:dict_Brewary[@"products"][0][@"producer_name"]];
+            myCell.lblPhone.text = [Helper getString:dict_Brewary[@"products"][0][@"phone"]];
+            myCell.lblWebsite.text =  [Helper getString:dict_Brewary[@"products"][0][@"website"]];
+            myCell.lblRegion.text = [Helper getString:dict_Brewary[@"products"][0][@"region"]];
+            myCell.lblBar_type.text = [Helper getString:dict_Brewary[@"products"][0][@"bar_type"]];
+            myCell.lblDescription.text = [Helper getString:dict_Brewary[@"products"][0][@"description"]];
             
+            myCell.infoDicBrovary = dict_Brewary;
             myCell.selfBack = self;
             return myCell;
         }
-        else
-        {
-            RatingCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:3];
+        else {
             
+            RatingCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:3];
             NSDictionary *dict = dict_Brewary[@"comment"][indexPath.row-1];
             
             cell.lblUserName.text = [NSString stringWithFormat:@"%@",dict[@"name"]];
-            
             cell.lblDateTime.text = [NSString stringWithFormat:@"%@",dict[@"dat"]];
-            
             cell.lblReview.text = [NSString stringWithFormat:@"%@",dict[@"comment"]];
-            
             cell.viewRating.rating = [dict[@"rating"] integerValue];
             
             return cell;
         }
     }
-    else
-    {
+    else {
         PosterCell *myCell = [[[NSBundle mainBundle]loadNibNamed:@"MyCell" owner:self options:nil]objectAtIndex:2];
+        
+         [myCell.imgPoster sd_setImageWithURL:[NSURL URLWithString:arrWallPost[indexPath.row][@"img"]] placeholderImage:[UIImage imageNamed:@"no_image.png"]];
+
+        myCell.lblDesc.text = [Helper getString:arrWallPost[indexPath.row][@"title"]];
+        myCell.lblDate.text = [Helper getString:arrWallPost[indexPath.row][@"dat"]];
+        myCell.lblTitle.text = [Helper getString:arrWallPost[indexPath.row][@"title"]];
+
         return myCell;
     }
 }
@@ -398,6 +430,5 @@
 {
     
 }
-
 
 @end

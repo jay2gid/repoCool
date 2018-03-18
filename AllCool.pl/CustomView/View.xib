@@ -162,6 +162,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="btnOk" destination="rwN-9D-bG0" id="QJr-MV-GXF"/>
                 <outlet property="txtAddressVender" destination="dEG-3D-WPa" id="PgD-T6-cuF"/>
                 <outlet property="txtComment" destination="UaZ-tg-MtO" id="meB-uW-RiP"/>
                 <outlet property="txtEmail" destination="xrZ-Wy-9x4" id="Vlc-HQ-FiW"/>
@@ -219,7 +220,7 @@
                                         <color key="titleColor" red="0.71764705880000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
-                                        <action selector="tapSuggestVender:" destination="l47-JZ-QiW" eventType="touchUpInside" id="dvm-ed-TeM"/>
+                                        <action selector="tapSuggestVender:" destination="l47-JZ-QiW" eventType="touchUpInside" id="GO0-ns-Q6I"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfR-1D-lYu">

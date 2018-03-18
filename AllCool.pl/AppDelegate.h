@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
+#import <CoreLocation/CoreLocation.h>
 @import GoogleMaps;
 @import GooglePlaces;
 @import Google;
@@ -21,6 +21,7 @@
 +(AppDelegate *)delegate;
 
 @property (strong, nonatomic) UINavigationController *navigationController;
+@property (strong, nonatomic) CLLocationManager *lmanager;
 
 @end
 

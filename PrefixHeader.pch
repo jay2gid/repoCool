@@ -47,4 +47,13 @@
 #import "BEMCheckBox.h"
 #import "BotalVC.h"
 
+#import "BraveryCell.h"
+#import "PubVC.h"
+
+#import "BraveryList.h"
+
+#import "BrowaryVC.h"
+#import "BraveryVC.h"
+
+
 #endif

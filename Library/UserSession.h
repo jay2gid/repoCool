@@ -34,19 +34,6 @@
 @property(nonatomic,strong)NSString *ProviderBioProfile;
 
 
-//     "IsRegAsFreelancerFlag" : true,
-//     "SPUserNameID" : 67,
-//     "Email" : "pankaj000gg1@gmail.com",
-//     "Password" : "",
-//     "City" : "Jaipur",
-//        "Country" : "India",
-//        "PostalCode" : "302034",
-//        "MobileNum" : "0787714000",
-//        "FLIdentificationNumber" : "CBSPP098734",
-//        "FLLastName" : "Kumat",
-//        "FLFirstName" : "Pankaj",
-//        "FLIdentificationPhoto" : "",
-//        "WebsiteAddress" : "TWHOUSE.com"
 
 -(void)saveSession;
 -(instancetype)initWithSession;

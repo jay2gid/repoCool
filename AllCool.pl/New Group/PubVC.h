@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PubVC : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface PubVC : UIViewController<UITableViewDelegate,UITableViewDataSource,ratingSuccessDelegate,UIScrollViewDelegate>
 
 @property  (nonatomic, strong) NSDictionary *infoDic;
 @property  (nonatomic, strong) NSString *from;

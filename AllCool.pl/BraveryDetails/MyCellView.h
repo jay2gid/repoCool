@@ -13,4 +13,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *lglName;
 @property (strong, nonatomic) IBOutlet StarRatingControl *rating;
 
+@property (strong, nonatomic) id infoDict;
+
+
 @end

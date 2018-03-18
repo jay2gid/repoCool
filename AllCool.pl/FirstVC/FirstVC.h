@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 @import GoogleMaps;
 @import GooglePlaces;
+#import <CoreLocation/CoreLocation.h>
 
-@interface FirstVC : UIViewController<GMSMapViewDelegate,UIGestureRecognizerDelegate>
+
+@interface FirstVC : UIViewController<GMSMapViewDelegate,UIGestureRecognizerDelegate,CLLocationManagerDelegate>
 
 @end

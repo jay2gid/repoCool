@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BraveryCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UIImageView *imageBravery;
 @property (strong, nonatomic) IBOutlet UILabel *lbl_name;
 @property (strong, nonatomic) IBOutlet UILabel *lblCity;

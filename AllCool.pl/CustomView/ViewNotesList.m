@@ -43,25 +43,26 @@
          
          @try
          {
-             if ([JSON[@"success"] integerValue] == 1)
-             {
+             if ([JSON[@"success"] integerValue] == 1) {
+               
                  arrayData = [NSMutableArray arrayWithArray:JSON[@"notes_details"]] ;
                
-                 _tableList.delegate = self;
-                 _tableList.dataSource = self;
-                 [_tableList reloadData];
+                 if (arrayData.count > 0) {
+                     
+                     _tableList.delegate = self;
+                     _tableList.dataSource = self;
+                     [_tableList reloadData];
+                     _viewBlanck.hidden = true;
+                 }else{
+                     _viewBlanck.hidden = false;
+                     _tableList.hidden = true;
+                 }
                  
-             }
-             else
-             {
+             } else {
                  [self.selfBack.navigationController.view makeToast:@"Notes not found."];
              }
-         }
-         @catch (NSException *exception)
-         {
-         }
-         @finally
-         {
+         } @catch (NSException *exception) {
+         } @finally {
          }
      }];
     

@@ -6,6 +6,10 @@
 //  Copyright © 2017 Sanjay. All rights reserved.
 //
 
+
+///   @"beer_type":@"bottle",   barall
+
+
 #import "BotalVC.h"
 #import "ViewAddRatingTobotal.h"
 #import "ViewWithCornerAndBorder.h"
@@ -33,9 +37,9 @@
 
     NSDictionary *dictResponce;
     IBOutlet UILabel *lblBlg;
-    
     IBOutlet UILabel *lblAbv;
     IBOutlet UILabel *lblIbu;
+    
     IBOutlet UILabel *lblAromat;
     IBOutlet UILabel *lblWyglad;
     IBOutlet UILabel *lblSmak;
@@ -44,11 +48,13 @@
     
     IBOutlet UIImageView *imageBotal;
 
-    NSArray *arrayUserRatings;
+    NSArray *arrayUserRatings,*arrayRatings;
     IBOutlet UITableView *tblRatings;
     
     ViewFavList *viewCustomList;
-    
+    NSString *bearId;
+
+    NSInteger ocenaTag;
 }
 
 @end
@@ -59,7 +65,7 @@
     [super viewDidLoad];
     
     GET_HEADER_VIEW_WITH_BACK
-    header.title.text = @"Reduga loss weekend";
+    header.title.text = [Helper getString:dictBeer[@"title"]];
 
     rview1.layer.cornerRadius = 40;
     rview2.layer.cornerRadius = 40;
@@ -67,16 +73,19 @@
     
     mainScroll.contentSize = CGSizeMake(WIDTH, 900);
     [self getSingleBearDetail];
+    
+    ocenaTag = 0;
 }
 
 -(void)getSingleBearDetail
 {
     SVHUD_START
     
-    NSString *bearId;
-    
     if ([_from isEqualToString:@"favroit"]) {
         bearId = [Helper getString:dictBeer[@"id"]];
+    }
+    else if ([_from isEqualToString:@"other"]) {
+        bearId = [Helper getString:dictBeer[@"bid"]];
     }
     else{
         bearId = [Helper getString:dictBeer[@"pid"]];
@@ -90,30 +99,28 @@
          SVHUD_STOP
          @try
          {
+             NSLog(@"%@",JSON);
              if ([JSON[@"success"] integerValue] == 1)
              {
                  [self.navigationController.view makeToast:JSON[@"message"]];
                  viewBtnTst.hidden = YES;
                  
-                 if ([JSON[@"tested"] integerValue] == 1)
-                 {
+                 if ([JSON[@"tested"] integerValue] == 1) {
                      viewBtnTst.hidden = YES;
-                 }
-                 else
-                 {
+                 }else{
                      viewBtnTst.hidden = NO;
                  }
                  
                  dictResponce = JSON;
                  
-                 [self showCustomList];
-                 if ([JSON[@"count"] integerValue] == 1)
-                 {
+                 [self makeCustomList];
+                 
+                 if ([JSON[@"count"] integerValue] == 1) {
                      lblFavCount.text = [NSString stringWithFormat:@"%@",JSON[@"count"]];
                  }
                  
-                 if ([JSON[@"products"] count] > 0)
-                 {
+                 if ([JSON[@"products"] count] > 0) {
+                     
                      NSDictionary *dic = JSON[@"products"][0];
                      if (dic[@"product_name"])
                      {
@@ -139,11 +146,11 @@
 
                      if (dic[@"alcohole_type"])
                      {
-                         lblAlcohotType.text = [NSString stringWithFormat:@"%@",dic[@"alcohole_type"]];
+                         lblAlcohotType.text = [Helper getString:dic[@"alcohole_type"]];
                      }
                      if (dic[@"Avg_rating"])
                      {
-                         botalRating.rating = [[NSString stringWithFormat:@"%@",dic[@"Avg_rating"]] integerValue];
+                         botalRating.rating = [Helper getIntegerDefaultZero:dic[@"Avg_rating"]];
                      }
                      if (JSON[@"ratings"])
                      {
@@ -156,13 +163,13 @@
                         }
                      }
                      
-                     
+                     [imageBotal sd_setImageWithURL:[NSURL URLWithString:[Helper getString:dic[@"image"]]] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
                  
                 }
              }
              else
              {
-                 if ([JSON[@"message"] integerValue])
+                 if (JSON[@"message"])
                  {
                      [self.navigationController.view makeToast:JSON[@"message"]];
                  }
@@ -184,13 +191,16 @@
 - (IBAction)tapBtnOcena:(UIButton *)sender {
     
     [UIView animateWithDuration:0.3 animations:^{
-        
         slidingLine.frame =  CGRectMake(WIDTH/2*sender.tag, 40, WIDTH/2, 2);
     }];
     
     [btnOcena1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [btnOcena2 setTitleColor:[UIColor darkGrayColor]forState:UIControlStateNormal];
     [sender setTitleColor:APP_COLOR_RED forState:UIControlStateNormal];
+    
+    ocenaTag = sender.tag;
+    [tblRatings reloadData];
+    
 }
 
 - (IBAction)tapRating:(id)sender {
@@ -224,15 +234,12 @@
          SVHUD_STOP
          @try
          {
-             if ([JSON[@"success"] integerValue] == 1)
-             {
+             NSLog(@"%@",JSON);
+             if ([JSON[@"success"] integerValue] == 1){
                  [self.navigationController.view makeToast:JSON[@"message"]];
                  viewBtnTst.hidden = YES;
-             }
-             else
-             {
-                 if ([JSON[@"message"] integerValue])
-                 {
+             }else{
+                 if ([JSON[@"message"] integerValue]){
                      [self.navigationController.view makeToast:JSON[@"message"]];
                  }
              }
@@ -242,7 +249,6 @@
          @finally
          {}
      }];
-    
 }
 
 
@@ -268,10 +274,8 @@
                  }
              }
          }
-         @catch (NSException *exception)
-         {}
-         @finally
-         {}
+         @catch (NSException *exception) {}
+         @finally {}
      }];
 }
 
@@ -283,10 +287,28 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return arrayUserRatings.count;
+    if (ocenaTag == 0) {
+        return arrayUserRatings.count;
+    } else{
+        if(arrayRatings.count == 0) {
+            return 1;
+        }
+        return arrayRatings.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(ocenaTag == 1){
+        
+        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"staic"];
+        
+        cell.textLabel.font = [UIFont systemFontOfSize:13];
+        cell.textLabel.text = @"Tutaj dodawane są oceny certyfikowanych sędziów piwnych. Rejestracja sędziów z poziomu przeglądarki ze strony allcool.pl";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.numberOfLines = 0;
+        return cell;
+    }
+    
     RatingCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:3];
     NSDictionary *dict = arrayUserRatings[indexPath.row];
     
@@ -299,15 +321,15 @@
     if (dict[@"comment"])
         cell.lblReview.text = [NSString stringWithFormat:@"%@",dict[@"comment"]];
     
+    if (dict[@"rating"]) {
+        cell.viewRating.rating = [dict[@"rating"] integerValue];
+    }
+
     return cell;
 }
 
 
-
-
-
 #pragma mark self created list
-
 
 -(void)makeCustomList
 {
@@ -355,19 +377,16 @@
             lbl = [[UILabel alloc]initWithFrame:CGRectMake(70, 70 + i * 60 , viewCustomList.scrollCheckButtons.frame.size.width - 70, 44)];
             lbl.text  =  [Helper getString:dict[@"list_name"]];
             [viewCustomList.scrollCheckButtons addSubview:lbl];
-            
-            
         }
-        
     }
-    
 }
 
 -(IBAction)showCustomList
-
 {
     viewCustomList.hidden = NO;
+    [self.view addSubview:viewCustomList];
 }
+
 -(void)didTapCheckBox:(BEMCheckBox *)checkBox
 {
     checkBox.userInteractionEnabled = NO;
@@ -383,26 +402,24 @@
     {
         listName = [NSString stringWithFormat:@"%@",dictResponce[@"custom_lists"][tag-1][@"list_name"]];
     }
-    
+   
     NSDictionary *dict = @{@"uid":UserID,
                            @"list_name":listName,
-                           @"beer_type":@"1",
+                           @"beer_type":@"bottle",
                            @"bid":[NSString stringWithFormat:@"%@",dictBeer[@"id"]]};
+    
     SVHUD_START
     [WebServiceCalls POST:@"custom_list_record.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
      {
          SVHUD_STOP
          @try
          {
-             if ([JSON[@"success"] integerValue] == 1)
-             {
+             viewCustomList.hidden = YES;
+             if ([JSON[@"success"] integerValue] == 1){
                  [self.navigationController.view makeToast:JSON[@"message"]];
                  viewBtnTst.hidden = YES;
-             }
-             else
-             {
-                 if ([JSON[@"message"] integerValue])
-                 {
+             }else{
+                 if ([JSON[@"message"] integerValue]) {
                      [self.navigationController.view makeToast:JSON[@"message"]];
                  }
              }

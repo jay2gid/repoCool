@@ -41,5 +41,6 @@
 }
 
 @property (nonatomic, strong) NSString *F_ID;
+@property (nonatomic, strong) NSDictionary *infoDic;
 
 @end

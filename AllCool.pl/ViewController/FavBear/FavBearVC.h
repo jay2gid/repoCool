@@ -14,5 +14,7 @@
 }
 @property(nonatomic,readwrite) BOOL isBack;
 @property(nonatomic,readwrite) int apiTag;
+@property(nonatomic,readwrite) NSString *customListName;
+
 
 @end

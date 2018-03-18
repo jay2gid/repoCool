@@ -11,6 +11,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfilVC">
             <connections>
+                <outlet property="imgFill" destination="ath-Mw-TzV" id="oBi-xy-UWT"/>
+                <outlet property="lblBarowCount" destination="sZr-Qi-5PC" id="9TD-AP-7bM"/>
+                <outlet property="lblBrowrCount" destination="aJj-A8-0TF" id="0bB-ky-Gke"/>
+                <outlet property="lblPiwaCount" destination="VnR-op-27D" id="5qK-fB-ANt"/>
+                <outlet property="lblPountCount" destination="8TJ-Kg-6l2" id="fy3-Sh-Loz"/>
+                <outlet property="lblStatus" destination="vbY-hJ-xKB" id="5TU-Nh-ZdG"/>
+                <outlet property="scrollBotals" destination="5YR-Rs-Lt4" id="D47-yM-9Ck"/>
+                <outlet property="scrollVender" destination="1X6-RE-YRs" id="cse-d1-QuU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewForHeader" destination="s19-xu-7AF" id="RXZ-vx-JRG"/>
             </connections>
@@ -31,7 +39,7 @@
                     <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="breweryback1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ath-Mw-TzV">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="breweryback1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ath-Mw-TzV">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -187,26 +195,27 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ulubione piwa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLG-7G-8Xw">
-                            <rect key="frame" x="8" y="303" width="359" height="21"/>
+                            <rect key="frame" x="8" y="310" width="359" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.71764705880000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z3z-29-KnY">
-                            <rect key="frame" x="8" y="332" width="359" height="79"/>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5YR-Rs-Lt4">
+                            <rect key="frame" x="8" y="339" width="359" height="87"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bear.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jxp-kS-poq">
-                                    <rect key="frame" x="110" y="8" width="72" height="63"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bear.png" translatesAutoresizingMaskIntoConstraints="NO" id="m0O-uw-zme">
-                                    <rect key="frame" x="178" y="8" width="72" height="63"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                            </subviews>
                         </scrollView>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1X6-RE-YRs">
+                            <rect key="frame" x="8" y="459" width="359" height="87"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        </scrollView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ulubione bary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9GQ-WX-ylf">
+                            <rect key="frame" x="7" y="436" width="359" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.71764705880000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -221,7 +230,6 @@
         </view>
     </objects>
     <resources>
-        <image name="bear.png" width="154" height="242"/>
         <image name="breweryback1.jpg" width="560" height="373"/>
     </resources>
 </document>

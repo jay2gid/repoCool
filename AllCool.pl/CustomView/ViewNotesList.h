@@ -20,4 +20,5 @@
 @property (readwrite, nonatomic) NSInteger tagFOR;
 
 @property (strong , nonatomic) NSDictionary *dict;
+@property (strong, nonatomic) IBOutlet UIView *viewBlanck;
 @end

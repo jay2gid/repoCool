@@ -29,6 +29,9 @@
     {
         GET_HEADER_VIEW_WITH_BACK
         header.title.text = @"Piwa spróbowane";
+        if (_apiTag == 2) {
+            header.title.text = _customListName;
+        }
     }
     else
     {
@@ -36,6 +39,8 @@
         header.title.text = @"Ulubione piwa";
     }
 
+   
+    
     [self get_Data];
     
     
@@ -53,7 +58,11 @@
     if (_apiTag == 1) {
         url = @"get_beertasted.php";
     }
-   
+    if (_apiTag == 2) {
+        url = @"getbeerofcustomlist.php";
+        dict = @{@"uid":UserID,
+                 @"list_name":_customListName,};
+    }
     
     [WebServiceCalls POST:url parameter:dict completionBlock:^(id JSON, WebServiceResult result)
      {
@@ -85,11 +94,9 @@
                  // [WebServiceCalls alert:@"Unable to fetch data. try again"];
              }
          }
-         @catch (NSException *exception)
-         {
+         @catch (NSException *exception) {
          }
-         @finally
-         {
+         @finally {
          }
      }];
 }
@@ -116,7 +123,6 @@
     BearCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:0];
     
     cell.btnDaduj.tag = indexPath.row;
-    
     
     [cell.imgBeerLogo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",arrBeer[indexPath.row][@"image"]]] placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
     
@@ -217,26 +223,19 @@
     UIAlertAction* yesButton = [UIAlertAction
                                 actionWithTitle:@"Yes"
                                 style:UIAlertActionStyleDefault
-                                handler:^(UIAlertAction * action)
-                                {
+                                handler:^(UIAlertAction * action){
                                     
                                     NSDictionary *param =@{@"mid": bid, @"del_concept":@"1" };
-                                    
                                     SVHUD_START
                                     [WebServiceCalls POST:@"deletefavbeer.php" parameter:param completionBlock:^(id JSON, WebServiceResult result)
                                      {
                                          [viewAddNote removeFromSuperview];
                                          SVHUD_STOP
-                                         
                                          if (result == WebServiceResultFail) {
-                                             
-                                             if (JSON)
-                                             {
+                                             if (JSON){
                                                  [self.navigationController.view makeToast:JSON[@"message"]];
                                              }
-                                         }
-                                         else
-                                         {
+                                         } else {
                                              if ([JSON[@"success"] integerValue] == 1)
                                              {
                                                  [self.navigationController.view makeToast:@"Favorite Item Deleted"];
@@ -250,8 +249,7 @@
                                              }
                                          }
                                      }];
-                                    
-                                }];
+                            }];
     
     UIAlertAction* noButton = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)  {  }];
    
@@ -260,11 +258,5 @@
     
     [self presentViewController:alert animated:YES completion:nil];
 }
-
-
-///////////////////////
-
-
-
 
 @end

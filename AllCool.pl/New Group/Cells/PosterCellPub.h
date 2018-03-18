@@ -10,4 +10,13 @@
 
 @interface PosterCellPub : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UIImageView *imgEvent;
+@property (strong, nonatomic) IBOutlet UILabel *lblDay;
+@property (strong, nonatomic) IBOutlet UILabel *lblMonth;
+
+@property (strong, nonatomic) IBOutlet UILabel *lblTitle;
+@property (strong, nonatomic) IBOutlet UILabel *lblTime;
+@property (strong, nonatomic) IBOutlet UILabel *lblDetail;
+@property (strong, nonatomic) IBOutlet UILabel *lblInfo;
+
 @end

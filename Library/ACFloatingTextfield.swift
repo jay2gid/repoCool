@@ -77,10 +77,18 @@ import UIKit
         }
     }
     
+    var update = false
     //MARK:- UITtextfield Draw Method Override
+    
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
-        self.upadteTextField(frame: CGRect(x:self.frame.minX, y:self.frame.minY, width:rect.width, height:rect.height))     //30-June-2017 vikram singh
+        
+        if !update {
+            update = true
+            self.upadteTextField(frame: CGRect(x:self.frame.minX, y:self.frame.minY - 5, width:rect.width, height:rect.height+10))
+        } else {
+            self.upadteTextField(frame: CGRect(x:self.frame.minX, y:self.frame.minY , width:rect.width, height:rect.height))
+        }
     }
     
     // MARK:- Loading From NIB

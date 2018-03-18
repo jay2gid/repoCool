@@ -10,7 +10,7 @@
 
 @implementation ViewAddRatingTobotal
 
-@synthesize BID,delegate, FID, VID, isF_ID_Vid,PID;
+@synthesize BID,delegate, FID, VID, isF_ID_Vid,PID,txtName,txtEmail,txtComment,viewStarRating;
 
 - (void)drawRect:(CGRect)rect
 {
@@ -26,6 +26,17 @@
 
 - (IBAction)btnSendClk:(id)sender
 {
+    
+    if ( _isUpdate) {
+        return;
+    }
+    
+    if (viewStarRating.rating == 0)
+    {
+        [WebServiceCalls alert:@"Select rating first."];
+        return;
+    }
+    
     if (txtComment.text.length > 0)
     {
         if (isF_ID_Vid != 1)
@@ -111,9 +122,10 @@
     }
     else
     {
+        
         ID = PID;
         url = @"vendorss/rat_vendor.php";
-        dict = @{@"userid":UserID, @"pid":ID, @"name":User_Name, @"email":User_Email, @"rating":star, @"comment":txtComment.text};
+        dict = @{@"userid":UserID, @"vid":ID, @"name":User_Name, @"email":User_Email, @"rating":star, @"comment":txtComment.text};
     }
     
     SVHUD_START
@@ -126,7 +138,7 @@
              if ([JSON[@"success"] integerValue] == 1)
              {
                  [self removeFromSuperview];
-                 [self.selfBack.navigationController.view makeToast:@"Rating Submitted"];
+                 [Helper makeToast:JSON[@"message"]];
                  [delegate didSuccessRating];
              }
              else
@@ -161,11 +173,6 @@
 
 
 
-
-
-
-
-
 #pragma mark Suggest Vender API
 /// ***************************** Suggest Vender API  **********************************
 
@@ -180,10 +187,7 @@
                                @"vendor_name":txtNameVender.text,
                                @"v_address":txtAddressVender.text};
         
-        
-    
-   
-    SVHUD_START
+        SVHUD_START
         [WebServiceCalls POST:@"vendorss/suggest_vendor.php" parameter:dict completionBlock:^(id JSON, WebServiceResult result)
           {
               SVHUD_STOP
@@ -205,13 +209,7 @@
               }
               
           }];
-         
-         
-         }
-         
+        }
      }
-
-
-
 
 @end

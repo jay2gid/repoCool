@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RadarVC : UIViewController
+@interface RadarVC : UIViewController<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate,BEMCheckBoxDelegate>
 
 @end

@@ -53,12 +53,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>use camera</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Use location</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Use location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Use location</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>allow use library</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -24,4 +24,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView *viewDesc;
 
+
+@property (strong, nonatomic)  UIViewController *selfBack;
+@property(nonatomic,strong) NSDictionary *infoPub;
+
 @end

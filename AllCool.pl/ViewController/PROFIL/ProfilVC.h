@@ -10,4 +10,5 @@
 
 @interface ProfilVC : UIViewController
 
+@property(nonatomic,strong) NSString *idUser;
 @end

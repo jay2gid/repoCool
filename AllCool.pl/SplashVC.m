@@ -37,13 +37,11 @@
     {
         UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         FirstVC *obj = [storybord instantiateViewControllerWithIdentifier:@"FirstVC"];
-        
         self.navigationController.viewControllers = [NSArray arrayWithObject:obj];
     }
     else
     {
         [self performSegueWithIdentifier:@"goLogin" sender:nil];
-
     }
     [self performSelector:@selector(remobveGIF) withObject:nil afterDelay:1];
 }

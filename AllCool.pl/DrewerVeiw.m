@@ -8,6 +8,7 @@
 
 #import "DrewerVeiw.h"
 #import "ProfilVC.h"
+#import "ActivityVC.h"
 @implementation DrewerVeiw
 {
     NSArray *imageArray,*titleArray;
@@ -21,13 +22,15 @@
         self.frame = backSelf.view.frame;
     }];
     
-    titleArray = @[@"Mapa",@"Ulubione bary",@"Ulubione piwa",@"Broway",@"Festiwale piwne",@"Inne listy",@"Radar",@"Aktywność",@"Profil",@"Ustawienia",@"Wyloguj się"];
+    titleArray = @[@"Mapa",@"Ulubione bary",@"Ulubione piwa",@"Browary",@"Festiwale piwne",@"Inne listy",@"Radar",@"Aktywność",@"Profil",@"Ustawienia",@"Wyloguj się"];
     
     imageArray = @[@"route",@"favpub",@"favbeer",@"barrel",@"rock_and_roll",@"otherlist",@"radarr",@"activity",@"useredit",@"settingss",@"circle_logout"];
     
     table.delegate = self;
     table.dataSource = self;
     [table reloadData];
+    table.showsVerticalScrollIndicator = false;
+    table.bounces = false;
 }
 
 
@@ -62,41 +65,78 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    UIStoryboard *storyBorad = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    
     NSArray *array = @[@"FirstVC",@"FavBravery",@"FavBearVC",@"BrowaryVC",@"FestivalListVC",@"FavListVC",@"RadarVC",@"",@"",@"SettingVC",@"LoginVC"];
     if (indexPath.row < 7)
     {
         if (indexPath.row == 0)
-             [self.backSelf.navigationController popToRootViewControllerAnimated:true];
+            [self.backSelf.navigationController popToRootViewControllerAnimated:true];
         
-        UIViewController *con = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:array[indexPath.row]];
+        UIViewController *con = [storyBorad instantiateViewControllerWithIdentifier:array[indexPath.row]];
         
         [self.backSelf.navigationController pushViewController:con animated:YES];
     }
-    else if (indexPath.row == 7 || indexPath.row == 8)
+    else if (indexPath.row == 7 )
+    {
+        ActivityVC *obj = [[ActivityVC alloc]initWithNibName:@"ActivityVC" bundle:nil];
+        [self.backSelf.navigationController pushViewController:obj animated:YES];
+    }
+    else if ( indexPath.row == 8)
     {
         ProfilVC *obj = [[ProfilVC alloc]initWithNibName:@"ProfilVC" bundle:nil];
         [self.backSelf.navigationController pushViewController:obj animated:YES];
     }
     else if (indexPath.row == 9)
     {
-        UIViewController *con = [self.backSelf.storyboard instantiateViewControllerWithIdentifier:array[indexPath.row]];
-        
+        UIViewController *con = [storyBorad instantiateViewControllerWithIdentifier:array[indexPath.row]];
         [self.backSelf.navigationController pushViewController:con animated:YES];
     }
     else
     {
-        [[NSUserDefaults standardUserDefaults] setObject:NULL forKey:@"userid"];
-        
-        UIViewController *con = [self.backSelf.storyboard instantiateViewControllerWithIdentifier:array[indexPath.row]];
-        
-        [self.backSelf.navigationController pushViewController:con animated:YES];
+        [self logOut];
     }
 }
+
+-(void)logOut{
+    
+    UIAlertController * view = [UIAlertController
+                                alertControllerWithTitle:@"Log out!!"
+                                message:@""
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* yes = [UIAlertAction
+                          actionWithTitle:@"Yes"
+                          style:UIAlertActionStyleDefault
+                          handler:^(UIAlertAction * action)
+                          {
+                              [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userid"];
+                              UIViewController *con = [self.backSelf.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+                              [self.backSelf.navigationController pushViewController:con animated:NO];
+                              
+                          }];
+    
+    UIAlertAction* cancel = [UIAlertAction
+                              actionWithTitle:@"No"
+                              style:UIAlertActionStyleCancel
+                              handler:^(UIAlertAction * action)
+                              {  }];
+                             
+                             
+     [view addAction:yes];
+     [view addAction:cancel];
+     [self.backSelf presentViewController:view animated:YES completion:nil];
+                             
+                             
+                             
+}
+
+
 - (IBAction)tap:(id)sender {
     
     [UIView animateWithDuration:0.2 animations:^{
         self.frame = CGRectMake(-WIDTH, 0, WIDTH, HEIGHT);
-        
     }];
     
 }

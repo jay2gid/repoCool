@@ -94,13 +94,22 @@ static NSString *getuserphone;
     
     @try
     {
+        NSString *URLSTRING = [NSString stringWithFormat:@"%@%@",BASE_URL,url];
+
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
         manager.securityPolicy.allowInvalidCertificates = YES;//This is for https
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
-        [manager POST:url parameters:parameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+        [manager POST:URLSTRING parameters:parameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
          {
-             [formData appendPartWithFileData:imageData name:@"userImage" fileName:@"userImage.jpg" mimeType:@"image/jpeg"];
+            
+                 NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+                 dateFormatter.dateFormat = @"yyyyMMddHHmmss";
+                 NSString *name = [dateFormatter stringFromDate:[NSDate date]];
+             
+             
+             name = [NSString stringWithFormat:@"ios%@.jpg",name];
+             [formData appendPartWithFileData:imageData name:@"file" fileName:name mimeType:@"image/jpeg"];
          }
               success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
@@ -210,6 +219,8 @@ static NSString *getuserphone;
     dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     return [dateFormatter stringFromDate:[NSDate date]];
 }
+
+
 
 +(BOOL)isValidEmail:(NSString *)email
 {

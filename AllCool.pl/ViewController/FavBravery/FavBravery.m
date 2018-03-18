@@ -30,10 +30,10 @@
     {
         GET_HEADER_VIEW_WITH_BACK
         if (_apiTag == 1) {
-            header.title.text = @"Odwiedzone browary";
+            header.title.text = @"Odwiedzone bary";
 
         }
-        else if (_apiTag == 2) {
+        else if (_apiTag == 3) {
             header.title.text = @"Ulubione browary";
         }
     }
@@ -54,13 +54,11 @@
     NSString *url = @"wishlist_favourite_record_vendor.php";
     
     if (_apiTag == 1) {
-        url= @"get_brewery_visited.php";
+        url= @"get_pub_visited.php";
     }
-    else if (_apiTag == 1) {
+    else if (_apiTag == 3) {
         url = @"wishlist_favourite_record_brewery.php";
     }
-    
-
     
     
     [WebServiceCalls POST:url parameter:dict completionBlock:^(id JSON, WebServiceResult result)
@@ -109,14 +107,14 @@
 {
     BraveryCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"Cells" owner:self options:nil]objectAtIndex:1];
     
+    NSDictionary *dict = arrList[indexPath.row];
+    
+    cell.lbl_name.text = [Helper getString:dict[@"name"]];
+    cell.lblType.text =  [NSString stringWithFormat:@"%@ | %@",dict[@"bar_type"],dict[@"city"]];
+    cell.lblCity.text = [NSString stringWithFormat:@"%@ %@",dict[@"street_name"] ,dict[@"street_number"]];
+    cell.lblAvgRating.text =  [Helper getString:dict[@"Avg_rating"]];
 
-    cell.lbl_name.text = [NSString stringWithFormat:@"%@",arrList[indexPath.row][@"name"]];
-    cell.lblType.text = [NSString stringWithFormat:@"%@",arrList[indexPath.row][@"business_name"]];
-    cell.lblCity.text = [NSString stringWithFormat:@"%@",arrList[indexPath.row][@"street_name"]];
-    cell.lblAvgRating.text = [NSString stringWithFormat:@"%@",arrList[indexPath.row][@"Avg_rating"]];
-
-    [cell.imageBravery sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",arrList[indexPath.row][@"img"]]]   placeholderImage:[UIImage imageNamed:@"noimage.jpg"]];
-
+    [Helper setImageOnPGlass:cell.imageBravery url:dict[@"img"]];
     
     [cell.btnDaduj addTarget:self action:@selector(methodDauj:) forControlEvents:UIControlEventTouchUpInside];
     cell.btnDaduj.tag = indexPath.row;
@@ -150,7 +148,7 @@
 {
     if (viewAddNote.txtNote.text.length > 0)
     {
-        NSDictionary *param =@{@"uid": UserID, @"vid":bid,   @"comment":viewAddNote.txtNote.text };
+        NSDictionary *param =@{@"uid": UserID, @"vid":bid,@"comment":viewAddNote.txtNote.text };
         
         SVHUD_START
         [WebServiceCalls POST:@"add_notes.php" parameter:param completionBlock:^(id JSON, WebServiceResult result)
@@ -215,33 +213,25 @@
                                          
                                          if (result == WebServiceResultFail) {
                                              
-                                             if (JSON)
-                                             {
+                                             if (JSON){
                                                  [self.navigationController.view makeToast:JSON[@"message"]];
                                              }
-                                         }
-                                         else
-                                         {
-                                             if ([JSON[@"success"] integerValue] == 1)
-                                             {
+                                         }else {
+                                             if ([JSON[@"success"] integerValue] == 1){
                                                  [self.navigationController.view makeToast:@"Favorite Item Deleted"];
                                                  [arrList removeObjectAtIndex:index];
                                                  [tblList reloadData];
-                                             }
-                                             else
-                                             {
+                                             } else {
                                                  [self.navigationController.view makeToast:@"Error"];
                                              }
                                          }
                                      }];
-                                    
                                 }];
     
     UIAlertAction* noButton = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)  {  }];
     
     [alert addAction:yesButton];
     [alert addAction:noButton];
-    
     [self presentViewController:alert animated:YES completion:nil];
 }
 

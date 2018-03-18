@@ -10,22 +10,20 @@
 
 @protocol ratingSuccessDelegate <NSObject>
 -(void)didSuccessRating;
--(void)didSuccessVenderSuggest;
 @end;
 
 
 @interface ViewAddRatingTobotal : UIView <UITextFieldDelegate>
 {
-    IBOutlet StarRatingControl *viewStarRating;
-    IBOutlet ACFloatingTextfield *txtName;
-    IBOutlet ACFloatingTextfield *txtEmail;
-    IBOutlet ACFloatingTextfield *txtComment;
-    
-    
     IBOutlet ACFloatingTextfield *txtNameVender;
     IBOutlet ACFloatingTextfield *txtAddressVender;
     
 }
+@property (nonatomic, strong)IBOutlet ACFloatingTextfield *txtName;
+@property (nonatomic, strong)IBOutlet ACFloatingTextfield *txtEmail;
+@property (nonatomic, strong)IBOutlet ACFloatingTextfield *txtComment;
+@property (nonatomic, strong)IBOutlet StarRatingControl *viewStarRating;
+
 @property (nonatomic, strong) NSDictionary *dictBear;
 
 @property (strong, nonatomic) id<ratingSuccessDelegate> delegate;
@@ -38,7 +36,9 @@
 @property (nonatomic, strong) NSString *VID;
 @property (nonatomic, strong) NSString *PID;
 
+@property (nonatomic, readwrite) BOOL isUpdate;
 
 @property (nonatomic, readwrite) NSInteger isF_ID_Vid;
+@property (strong, nonatomic) IBOutlet UIButton *btnOk;
 
 @end

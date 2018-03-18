@@ -21,8 +21,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
+    _lmanager = [[CLLocationManager alloc]init];
+ //   [_lmanager startUpdatingLocation];
+
     [GIDSignIn sharedInstance].delegate = self;
     //[FIRApp configure];
+    
     
     [GMSServices provideAPIKey:@"AIzaSyAHgc0o2XkUDVwnw7F0ru8b7JpWlPL5aOc"];
     [GMSPlacesClient provideAPIKey:@"AIzaSyAHgc0o2XkUDVwnw7F0ru8b7JpWlPL5aOc"];
@@ -36,33 +41,21 @@
     [SVProgressHUD setBackgroundColor:[UIColor blackColor]];
     
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userid"] != NULL)
-    {
-        UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        FirstVC *obj = [storybord instantiateViewControllerWithIdentifier:@"FirstVC"];
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        
-        _navigationController = [[UINavigationController alloc] initWithRootViewController:obj];
-        self.window.rootViewController = _navigationController;
-        [self.window makeKeyAndVisible];
-        
-        return YES;
-    }
-    else
-    {
-        
-        UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *obj = [storybord instantiateViewControllerWithIdentifier:@"SplashVC"];
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        
-        _navigationController = [[UINavigationController alloc] initWithRootViewController:obj];
-        self.window.rootViewController = _navigationController;
-        [self.window makeKeyAndVisible];
-        
-        return YES;
-    }
+    [self launchWindow];
     // Override point for customization after application launch.
     return YES;
+}
+
+
+-(void)launchWindow{
+    UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *obj = [storybord instantiateViewControllerWithIdentifier:@"SplashVC"];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    
+    _navigationController = [[UINavigationController alloc] initWithRootViewController:obj];
+    self.window.rootViewController = _navigationController;
+    [self.window makeKeyAndVisible];
 }
 
 

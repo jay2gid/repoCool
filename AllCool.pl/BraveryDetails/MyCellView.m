@@ -15,5 +15,12 @@
     // Drawing code
 }
 
+- (IBAction)tapButton:(id)sender {
+    
+    BotalVC *OBJ = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"BotalVC"];
+    OBJ.dictBeer = _infoDict;
+    [[AppDelegate delegate].navigationController pushViewController:OBJ animated:YES];
+}
+
 
 @end

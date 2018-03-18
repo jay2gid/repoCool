@@ -31,9 +31,9 @@
     btnNottaki.layer.borderWidth = 1;
     btnNottaki.layer.borderColor = btnNottaki.titleLabel.textColor.CGColor;
     
-    viewMid.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
-    viewMid.layer.shadowOffset = CGSizeMake(0.5, 0.5);
-    viewMid.layer.shadowOpacity = 5;
+//    viewMid.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
+//    viewMid.layer.shadowOffset = CGSizeMake(0.5, 0.5);
+//    viewMid.layer.shadowOpacity = 5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

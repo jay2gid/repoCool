@@ -19,11 +19,11 @@
     
     btnKasuj.layer.cornerRadius = 13;
     btnKasuj.layer.borderWidth = 1;
-    btnKasuj.layer.borderColor = btnDaduj.titleLabel.textColor.CGColor;
+    btnKasuj.layer.borderColor = btnKasuj.titleLabel.textColor.CGColor;
     
     btnNottaki.layer.cornerRadius = 13;
     btnNottaki.layer.borderWidth = 1;
-    btnNottaki.layer.borderColor = btnDaduj.titleLabel.textColor.CGColor;
+    btnNottaki.layer.borderColor = btnNottaki.titleLabel.textColor.CGColor;
     
     _imageBravery.clipsToBounds = YES;
     _imageBravery.layer.cornerRadius = 36;
