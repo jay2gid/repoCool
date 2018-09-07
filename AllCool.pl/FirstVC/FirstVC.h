@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @import GoogleMaps;
-@import GooglePlaces;
 #import <CoreLocation/CoreLocation.h>
 
 

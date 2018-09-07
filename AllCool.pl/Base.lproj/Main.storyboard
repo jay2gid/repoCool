@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -793,6 +793,11 @@
                             <constraint firstItem="Aqj-r3-1Iq" firstAttribute="top" secondItem="8Bu-zO-C6C" secondAttribute="bottom" constant="44" id="kKa-EA-fnr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageProfile" destination="UHP-nM-2Ch" id="0Gu-up-9Aw"/>
+                        <outlet property="lblName" destination="ZXX-zp-Rbr" id="KZL-WG-khA"/>
+                        <outlet property="lblStatus" destination="hPC-33-nvx" id="NTo-nq-OcL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="srD-K8-t7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -8,7 +8,7 @@
 //
 
 #import "FirstPubCell.h"
-#import "PubDesVC.h"
+//#import "PubDesVC.h"
 
 @implementation FirstPubCell
 
@@ -30,9 +30,9 @@
 
 - (IBAction)tapOnDec:(id)sender {
     
-    PubDesVC *obj = [[PubDesVC alloc]initWithNibName:@"PubDesVC" bundle:nil];
-    obj.infoPub = _infoPub;
-    [self.selfBack.navigationController pushViewController:obj animated:YES];
+//    PubDesVC *obj = [[PubDesVC alloc]initWithNibName:@"PubDesVC" bundle:nil];
+//    obj.infoPub = _infoPub;
+//    [self.selfBack.navigationController pushViewController:obj animated:YES];
 }
 
 @end

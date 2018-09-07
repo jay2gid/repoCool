@@ -43,7 +43,7 @@
     
     [self getMyActivityData];
     
-    //  [Helper setImageOnPGlass:imgFill url:USER_IMAGE_URL];
+    [Helper setImageOnPGlass:imgFill url:USER_IMAGE_URL];
 }
 
 -(void)getMyActivityData {

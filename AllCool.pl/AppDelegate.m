@@ -23,14 +23,10 @@
     
     
     _lmanager = [[CLLocationManager alloc]init];
- //   [_lmanager startUpdatingLocation];
-
     [GIDSignIn sharedInstance].delegate = self;
-    //[FIRApp configure];
     
     
     [GMSServices provideAPIKey:@"AIzaSyAHgc0o2XkUDVwnw7F0ru8b7JpWlPL5aOc"];
-    [GMSPlacesClient provideAPIKey:@"AIzaSyAHgc0o2XkUDVwnw7F0ru8b7JpWlPL5aOc"];
 
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];

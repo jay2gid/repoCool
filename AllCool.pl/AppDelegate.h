@@ -11,8 +11,6 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <CoreLocation/CoreLocation.h>
 @import GoogleMaps;
-@import GooglePlaces;
-@import Google;
 @import GoogleSignIn;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,GIDSignInDelegate>

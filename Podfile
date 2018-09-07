@@ -7,8 +7,9 @@ target 'AllCool.pl' do
 
   # Pods for AllCool.pl
 
-  pod 'GoogleMaps'
-  pod 'GooglePlaces'
+
+ pod 'GoogleMaps'
+  #pod 'GooglePlaces'
   pod 'Google/SignIn'
 
 end
